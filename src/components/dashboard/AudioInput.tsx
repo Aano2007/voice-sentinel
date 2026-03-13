@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useAudioRecorder } from "@/hooks/useAudioRecorder";
 
 interface AudioInputProps {
-  onAnalyze: (source: "upload" | "recording") => void;
+  onAnalyze: (source: "upload" | "recording", audioFile?: File | Blob) => void;
   onRecordingChunk: () => void;
   isAnalyzing: boolean;
 }
@@ -104,7 +104,7 @@ export function AudioInput({ onAnalyze, onRecordingChunk, isAnalyzing }: AudioIn
       {uploadedFile && (
         <Button
           className="w-full bg-primary text-primary-foreground hover:bg-primary/90 font-mono glow-primary"
-          onClick={() => onAnalyze("upload")}
+          onClick={() => onAnalyze("upload", uploadedFile)}
           disabled={isAnalyzing}
         >
           {isAnalyzing ? "Analyzing..." : "Analyze Uploaded Audio"}
@@ -170,7 +170,14 @@ export function AudioInput({ onAnalyze, onRecordingChunk, isAnalyzing }: AudioIn
             </div>
             <Button
               className="w-full bg-accent text-accent-foreground hover:bg-accent/90 font-mono glow-accent"
-              onClick={() => onAnalyze("recording")}
+              onClick={() => {
+                // Get the recorded audio blob
+                if (recordedUrl) {
+                  fetch(recordedUrl)
+                    .then(res => res.blob())
+                    .then(blob => onAnalyze("recording", blob));
+                }
+              }}
               disabled={isAnalyzing}
             >
               <Send className="w-4 h-4 mr-2" />

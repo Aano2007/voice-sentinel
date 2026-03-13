@@ -9,6 +9,7 @@ import { SpectrogramView } from "@/components/dashboard/SpectrogramView";
 import { DeepfakeIndicators } from "@/components/dashboard/DeepfakeIndicators";
 import { DetectionTimeline } from "@/components/dashboard/DetectionTimeline";
 import { analyzeAudio, resetAnalysis, type DetectionResult } from "@/lib/audioAnalysis";
+import { AudioDatabase } from "@/lib/audioDatabase";
 import { Activity, Brain, BarChart3, FileText, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -16,35 +17,71 @@ export default function Index() {
   const [result, setResult] = useState<DetectionResult | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [timelineData, setTimelineData] = useState<{ time: number; probability: number }[]>([]);
+  const [currentAudioFile, setCurrentAudioFile] = useState<File | Blob | null>(null);
+  const [currentAudioSource, setCurrentAudioSource] = useState<"upload" | "recording" | null>(null);
   const timeRef = useRef(0);
 
-  const handleAnalyze = useCallback((source: "upload" | "recording") => {
+  const handleAnalyze = useCallback((source: "upload" | "recording", audioFile?: File | Blob) => {
     setIsAnalyzing(true);
     setTimelineData([]);
     resetAnalysis();
     timeRef.current = 0;
+    setCurrentAudioSource(source);
+    if (audioFile) {
+      setCurrentAudioFile(audioFile);
+    }
 
     // Simulate progressive analysis
     const steps = 6 + Math.floor(Math.random() * 4);
     let step = 0;
 
-    const interval = setInterval(() => {
+    const interval = setInterval(async () => {
       step++;
       timeRef.current += 0.5;
-      const analysis = analyzeAudio(timeRef.current);
+      const analysis = await analyzeAudio(audioFile || null, timeRef.current);
       setTimelineData((prev) => [...prev, analysis.timelinePoint]);
 
       if (step >= steps) {
         clearInterval(interval);
         setResult(analysis);
         setIsAnalyzing(false);
+        
+        // Save to database
+        if (audioFile) {
+          const fileName = audioFile instanceof File ? audioFile.name : `recording-${Date.now()}.webm`;
+          const fileSize = audioFile.size;
+          const duration = Math.floor(timeRef.current);
+          
+          AudioDatabase.add({
+            type: source,
+            fileName,
+            fileSize,
+            duration,
+            result: {
+              label: analysis.label,
+              confidence: analysis.confidence,
+              riskScore: analysis.riskScore,
+            },
+            features: {
+              spectralCentroid: analysis.features.spectralCentroid,
+              zeroCrossingRate: analysis.features.zeroCrossingRate,
+              pitchVariation: analysis.features.pitchVariation,
+              harmonicRatio: analysis.features.harmonicRatio,
+            },
+            indicators: analysis.indicators.map((ind) => ({
+              name: ind.name,
+              detected: ind.detected,
+              severity: ind.severity,
+            })),
+          });
+        }
       }
     }, 400);
   }, []);
 
-  const handleRecordingChunk = useCallback(() => {
+  const handleRecordingChunk = useCallback(async () => {
     timeRef.current += 0.5;
-    const analysis = analyzeAudio(timeRef.current);
+    const analysis = await analyzeAudio(null, timeRef.current);
     setTimelineData((prev) => [...prev, analysis.timelinePoint]);
     setResult(analysis);
   }, []);

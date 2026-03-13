@@ -1,7 +1,11 @@
-import { Radio, Wifi } from "lucide-react";
+import { Radio, Wifi, History } from "lucide-react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 export function Navbar() {
+  const navigate = useNavigate();
+
   return (
     <nav className="border-b border-border bg-card/80 backdrop-blur-xl px-6 py-3 flex items-center justify-between sticky top-0 z-50">
       <div className="flex items-center gap-3">
@@ -22,6 +26,15 @@ export function Navbar() {
       </div>
 
       <div className="flex items-center gap-4">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => navigate("/history")}
+          className="flex items-center gap-2 text-primary hover:text-primary hover:bg-primary/10 font-mono"
+        >
+          <History className="w-4 h-4" />
+          <span className="text-xs uppercase tracking-wider">History</span>
+        </Button>
         <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
           <motion.div
             className="w-2 h-2 rounded-full bg-primary"
