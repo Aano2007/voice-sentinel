@@ -135,12 +135,12 @@ export function AudioInput({ onAnalyze, onRecordingChunk, isAnalyzing }: AudioIn
           {isRecording && (
             <>
               <motion.div
-                className="absolute inset-0 rounded-full border-2 border-destructive"
+                className="absolute inset-0 rounded-full border-2 border-destructive pointer-events-none"
                 animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
               />
               <motion.div
-                className="absolute inset-0 rounded-full border-2 border-destructive"
+                className="absolute inset-0 rounded-full border-2 border-destructive pointer-events-none"
                 animate={{ scale: [1, 1.8], opacity: [0.3, 0] }}
                 transition={{ duration: 1.5, repeat: Infinity, delay: 0.3 }}
               />
