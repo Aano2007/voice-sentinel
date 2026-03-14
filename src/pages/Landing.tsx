@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 import { LoadingScreen } from "@/components/LoadingScreen";
 import {
   Radio, Upload, Brain, Search, CheckCircle,
@@ -257,6 +258,7 @@ function UseCases() {
 
 // ─── CTA ─────────────────────────────────────────────────────────────────────
 function CTASection({ onGetStarted }: { onGetStarted: () => void }) {
+  const { user } = useAuth();
   return (
     <section className="py-24 px-6">
       <motion.div className="max-w-3xl mx-auto text-center vg-card border-glow rounded-2xl p-12" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}>
@@ -266,8 +268,14 @@ function CTASection({ onGetStarted }: { onGetStarted: () => void }) {
           Join thousands of individuals and organizations using VoiceGuard AI to stay ahead of synthetic voice threats.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link to="/create-account" className="btn-primary">Create Free Account →</Link>
-          <button onClick={onGetStarted} className="btn-ghost">Get Started →</button>
+          {user ? (
+            <Link to="/dashboard" className="btn-primary">Go to Dashboard →</Link>
+          ) : (
+            <>
+              <Link to="/create-account" className="btn-primary">Create Free Account →</Link>
+              <button onClick={onGetStarted} className="btn-ghost">Get Started →</button>
+            </>
+          )}
         </div>
       </motion.div>
     </section>
