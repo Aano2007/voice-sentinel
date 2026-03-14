@@ -1,109 +1,96 @@
-# AI Voice Detection Improvements
+# VoiceGuard AI — Detection Engine Improvements
 
 ## Overview
-The deepfake detection system has been upgraded from a mock/simulation to a real audio analysis engine that examines actual audio features to detect AI-generated voices.
 
-## Key Changes
+The deepfake detection system has been upgraded from a simulation to a real audio analysis engine that processes actual signal data to identify AI-generated voices. This document outlines the technical improvements made to the detection pipeline.
 
-### 1. Real Audio Analysis (audioAnalysis.ts)
-The system now performs actual audio signal processing:
+## Key Improvements
 
-#### Audio Features Analyzed:
-- **Spectral Centroid**: Measures the "brightness" of sound. AI voices often have unnatural frequency distributions.
-- **Zero Crossing Rate**: Tracks how often the audio signal crosses zero. AI voices typically have irregular patterns.
-- **Pitch Variation**: Calculates pitch changes over time. AI voices often have too consistent or erratic pitch.
-- **Harmonic Ratio**: Analyzes the ratio of harmonic to noise energy. AI voices show unnatural harmonic structures.
-- **Spectral Contrast**: Measures frequency band contrasts. AI voices often have flatter spectral profiles.
-- **MFCC (Mel-Frequency Cepstral Coefficients)**: Standard audio fingerprinting technique.
-- **Chroma Features**: Analyzes pitch class distribution.
+### 1. Real Audio Signal Processing
 
-#### Detection Indicators:
-1. **Pitch Consistency** (High Severity)
-   - Detects: Pitch variation < 15 Hz or > 120 Hz
-   - AI voices often have unnaturally consistent or erratic pitch
+The engine now performs genuine audio signal analysis using the Web Audio API:
 
-2. **Harmonic Pattern** (Medium Severity)
-   - Detects: Harmonic ratio > 0.85 or < 0.25
-   - AI voices show abnormal harmonic structures
+#### Features Extracted
 
-3. **Speech Artifacts** (High Severity)
-   - Detects: Zero crossing rate < 0.01 or > 0.15
-   - Identifies synthetic speech artifacts in waveform
+| Feature | Description | Why It Matters |
+|---|---|---|
+| **Spectral Centroid** | Weighted mean of frequency magnitudes | AI voices have unnatural frequency brightness |
+| **Zero Crossing Rate** | Rate of waveform sign changes | Synthetic speech shows irregular ZCR patterns |
+| **Pitch Variation** | Delta pitch across time windows | AI voices are too consistent or erratic |
+| **Harmonic Ratio** | Harmonic-to-noise energy ratio | AI voices show abnormal harmonic structures |
+| **Spectral Contrast** | Per-band peak vs valley difference | AI voices have flatter spectral profiles |
+| **MFCC** | Mel-frequency cepstral coefficients | Standard voice fingerprinting technique |
+| **Chroma Features** | Pitch class energy distribution | Captures tonal characteristics |
 
-4. **Frequency Spikes** (Medium Severity)
-   - Detects: Spectral centroid < 500 Hz or > 4500 Hz
+### 2. Detection Indicators
+
+Six indicators are evaluated per analysis, each with a severity weight:
+
+1. **Pitch Consistency** — Severity: High (+15)
+   - Triggers when pitch variation < 15 Hz or > 120 Hz
+   - AI voices are unnaturally flat or erratically pitched
+
+2. **Harmonic Pattern** — Severity: Medium (+8)
+   - Triggers when harmonic ratio > 0.85 or < 0.25
+   - Abnormal harmonic-to-noise structures
+
+3. **Speech Artifacts** — Severity: High (+15)
+   - Triggers when ZCR < 0.01 or > 0.15
+   - Identifies synthetic waveform artifacts
+
+4. **Frequency Spikes** — Severity: Medium (+8)
+   - Triggers when spectral centroid < 500 Hz or > 4500 Hz
    - Abnormal frequency distributions
 
-5. **Breath Pattern** (Low Severity)
-   - Detects: Missing low-frequency energy
-   - AI voices often lack natural breathing patterns
+5. **Breath Pattern** — Severity: Low (+5)
+   - Detects missing low-frequency energy
+   - AI voices lack natural breathing and sub-vocal noise
 
-6. **Formant Transition** (Medium Severity)
-   - Detects: Low spectral contrast variation
-   - AI voices have unnatural formant transitions
+6. **Formant Transition** — Severity: Medium (+8)
+   - Detects low spectral contrast variation
+   - AI voices have unnatural vowel resonance shifts
 
-### 2. Risk Scoring Algorithm
-The system calculates risk scores based on:
-- Number of detected anomalies
-- Severity weighting (High: +15, Medium: +8, Low: +5)
-- Base detection rate
+### 3. Risk Scoring
 
-**Classification:**
-- Risk Score ≥ 60: "Deepfake Detected" (70-95% confidence)
-- Risk Score 35-59: "Suspicious" (50-70% confidence)
-- Risk Score < 35: "Real Voice" (85-95% confidence)
+```
+risk_score = base_score + Σ(severity_weights of triggered indicators)
 
-### 3. Real-time Audio Processing
-- Decodes uploaded audio files to AudioBuffer
-- Processes recorded audio in real-time
-- Generates actual spectrograms from audio data
-- Performs FFT (Fast Fourier Transform) analysis
+Classification:
+  ≥ 60  →  Deepfake Detected   (confidence: 70–95%)
+  35–59 →  Suspicious           (confidence: 50–70%)
+  < 35  →  Real Voice           (confidence: 85–95%)
+```
 
-## How It Works
+### 4. Real-time Processing Pipeline
 
-1. **Audio Upload/Recording**: User provides audio file or records voice
-2. **Audio Decoding**: File is decoded to AudioBuffer using Web Audio API
-3. **Feature Extraction**: System extracts multiple audio features
-4. **Anomaly Detection**: Each feature is checked against normal human voice ranges
-5. **Risk Calculation**: Detected anomalies are weighted and scored
-6. **Classification**: Final verdict based on risk score and confidence
+1. Audio input (file upload or live microphone)
+2. Decode to `AudioBuffer` via Web Audio API
+3. Run FFT (Fast Fourier Transform) for frequency domain data
+4. Extract time-domain features (ZCR, pitch via autocorrelation)
+5. Compute spectral features (centroid, contrast, harmonics)
+6. Score each indicator and sum weighted risk
+7. Classify and return verdict with confidence
 
-## Detection Accuracy
+## Accuracy Notes
 
-The system uses multiple complementary detection methods:
-- Frequency domain analysis (FFT, spectral features)
-- Time domain analysis (zero crossings, pitch)
-- Statistical analysis (variance, distribution)
-- Pattern recognition (harmonics, formants)
+The multi-layered approach improves detection for:
+- Text-to-Speech (TTS) systems
+- Voice cloning and deepfake models
+- Voice conversion pipelines
+- Diffusion-based speech synthesizers
 
-This multi-layered approach significantly improves detection accuracy for:
-- Text-to-Speech (TTS) AI voices
-- Voice cloning/deepfakes
-- Voice conversion systems
-- Synthetic speech generators
+## Known Limitations
 
-## Limitations
+- Very high-quality AI voices (e.g. latest ElevenLabs, VALL-E) may partially evade detection
+- Audio clips under 2 seconds may not provide sufficient feature data
+- Heavy background noise can skew spectral features
+- Unusual natural voices may occasionally trigger false positives
 
-While significantly improved, the system has some limitations:
-- Very high-quality AI voices may still evade detection
-- Short audio clips (< 2 seconds) may not provide enough data
-- Background noise can affect accuracy
-- Some natural voices with unusual characteristics may trigger false positives
+## Planned Improvements
 
-## Future Improvements
-
-Potential enhancements:
-1. Machine learning model integration
-2. Deep learning neural network for pattern recognition
-3. Database of known AI voice signatures
-4. Temporal analysis across longer audio segments
-5. Speaker verification and voice biometrics
-6. Integration with external deepfake detection APIs
-
-## Technical Stack
-
-- Web Audio API for audio processing
-- FFT for frequency analysis
-- Autocorrelation for pitch detection
-- Statistical analysis for feature extraction
-- Real-time spectrogram generation
+1. On-device ML model (ONNX) for learned feature classification
+2. Temporal analysis across longer audio windows
+3. Speaker verification and voice biometric comparison
+4. Integration with external deepfake detection APIs
+5. Confidence calibration using labeled voice datasets
+6. Database of known AI voice model signatures
