@@ -78,7 +78,7 @@ function ScrollProgress() {
 }
 
 // ─── Navbar ──────────────────────────────────────────────────────────────────
-function Navbar({ onGetStarted }: { onGetStarted: () => void }) {
+function Navbar() {
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   return (
     <nav className="fixed top-0 left-0 right-0 z-40 backdrop-blur-md" style={{ borderBottom: `1px solid ${S.border}`, background: "rgba(15,17,23,0.88)" }}>
@@ -94,10 +94,7 @@ function Navbar({ onGetStarted }: { onGetStarted: () => void }) {
             </button>
           ))}
         </div>
-        <div className="flex items-center gap-3">
-          <Link to="/sign-in" className="btn-ghost text-xs py-2 px-4">Sign In</Link>
-          <button onClick={onGetStarted} className="btn-outline text-xs py-2 px-4">Get Started</button>
-        </div>
+
       </div>
     </nav>
   );
@@ -133,7 +130,7 @@ function Hero({ onGetStarted }: { onGetStarted: () => void }) {
 
         {/* CTA */}
         <motion.div variants={fadeUp}>
-          <button onClick={onGetStarted} className="btn-primary text-base px-8 py-4">Try Voice Detection →</button>
+          <button onClick={onGetStarted} className="btn-primary text-base px-8 py-4">Get Started →</button>
         </motion.div>
 
         {/* Waveform */}
@@ -270,7 +267,7 @@ function CTASection({ onGetStarted }: { onGetStarted: () => void }) {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link to="/create-account" className="btn-primary">Create Free Account →</Link>
-          <button onClick={onGetStarted} className="btn-ghost">Try Voice Detection →</button>
+          <button onClick={onGetStarted} className="btn-ghost">Get Started →</button>
         </div>
       </motion.div>
     </section>
@@ -305,7 +302,7 @@ export default function Landing() {
       <div className="min-h-screen text-[#f5f4f2]" style={{ background: S.bg }}>
         <Grain />
         <ScrollProgress />
-        <Navbar onGetStarted={handleGetStarted} />
+        <Navbar />
         <Hero onGetStarted={handleGetStarted} />
         <HowItWorks />
         <Features />
