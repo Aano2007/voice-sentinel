@@ -81,8 +81,8 @@ export default function SecurityPage() {
                 { icon: Lock,        label: "Password Strength", value: isEmailProvider ? "Protected" : "Managed by provider", ok: true },
               ].map((row) => (
                 <div key={row.label} className="flex items-center gap-4 py-3 border-b border-[#1e1e1e] last:border-0">
-                  <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
-                    <row.icon className="w-4 h-4 text-blue-400" />
+                  <div className="w-8 h-8 rounded-lg bg-[#bcb8b1]/08 border border-[#bcb8b1]/15 flex items-center justify-center shrink-0">
+                    <row.icon className="w-4 h-4 text-[#bcb8b1]" />
                   </div>
                   <div className="flex-1">
                     <p className="font-mono text-[10px] text-[#a3a3a3] uppercase tracking-wider">{row.label}</p>
@@ -104,7 +104,7 @@ export default function SecurityPage() {
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#a3a3a3]" />
                   <input type={showCurrent ? "text" : "password"} placeholder="Current password" value={currentPass}
                     onChange={(e) => { setCurrentPass(e.target.value); setError(""); setSuccess(""); }} required
-                    className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-blue-500/60 rounded-lg pl-10 pr-10 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono" />
+                    className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-[#bcb8b1]/50 rounded-lg pl-10 pr-10 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono" />
                   <button type="button" onClick={() => setShowCurrent(p => !p)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#a3a3a3] hover:text-[#fafafa]">
                     {showCurrent ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
@@ -114,7 +114,7 @@ export default function SecurityPage() {
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#a3a3a3]" />
                   <input type={showNew ? "text" : "password"} placeholder="New password" value={newPass}
                     onChange={(e) => { setNewPass(e.target.value); setError(""); setSuccess(""); }} required
-                    className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-blue-500/60 rounded-lg pl-10 pr-10 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono" />
+                    className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-[#bcb8b1]/50 rounded-lg pl-10 pr-10 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono" />
                   <button type="button" onClick={() => setShowNew(p => !p)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#a3a3a3] hover:text-[#fafafa]">
                     {showNew ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
@@ -124,7 +124,7 @@ export default function SecurityPage() {
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#a3a3a3]" />
                   <input type="password" placeholder="Confirm new password" value={confirmPass}
                     onChange={(e) => { setConfirmPass(e.target.value); setError(""); setSuccess(""); }} required
-                    className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-blue-500/60 rounded-lg pl-10 pr-4 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono" />
+                    className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-[#bcb8b1]/50 rounded-lg pl-10 pr-4 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono" />
                 </div>
 
                 {success && <div className="flex items-center gap-2 text-green-400 text-xs font-mono"><CheckCircle2 className="w-3.5 h-3.5" />{success}</div>}

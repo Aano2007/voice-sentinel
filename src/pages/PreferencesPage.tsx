@@ -95,7 +95,7 @@ export default function PreferencesPage() {
           {/* Analysis settings */}
           <motion.div variants={fadeUp} custom={0.1} className="vg-card rounded-xl p-6 mt-6 space-y-5">
             <div className="flex items-center gap-2 mb-1">
-              <Zap className="w-4 h-4 text-blue-400" />
+              <Zap className="w-4 h-4 text-[#bcb8b1]" />
               <h2 className="font-display text-sm font-bold text-[#fafafa]">Analysis</h2>
             </div>
 
@@ -120,13 +120,13 @@ export default function PreferencesPage() {
                   <p className="font-mono text-sm text-[#fafafa]">Risk Alert Threshold</p>
                   <p className="font-mono text-[10px] text-[#a3a3a3]">Alert when risk score exceeds this value</p>
                 </div>
-                <span className="font-mono text-sm font-bold text-blue-400">{prefs.analysisThreshold}%</span>
+                <span className="font-mono text-sm font-bold text-[#bcb8b1]">{prefs.analysisThreshold}%</span>
               </div>
               <input
                 type="range" min={10} max={95} step={5}
                 value={prefs.analysisThreshold}
                 onChange={(e) => update("analysisThreshold", Number(e.target.value))}
-                className="w-full accent-blue-500 cursor-pointer"
+                className="w-full accent-[#bcb8b1] cursor-pointer"
               />
               <div className="flex justify-between font-mono text-[9px] text-[#a3a3a3] mt-1">
                 <span>10% (Sensitive)</span><span>95% (Strict)</span>
@@ -137,7 +137,7 @@ export default function PreferencesPage() {
           {/* Notifications */}
           <motion.div variants={fadeUp} custom={0.2} className="vg-card rounded-xl p-6 space-y-5">
             <div className="flex items-center gap-2 mb-1">
-              <Bell className="w-4 h-4 text-blue-400" />
+              <Bell className="w-4 h-4 text-[#bcb8b1]" />
               <h2 className="font-display text-sm font-bold text-[#fafafa]">Notifications</h2>
             </div>
             {[
@@ -156,7 +156,7 @@ export default function PreferencesPage() {
           {/* Display */}
           <motion.div variants={fadeUp} custom={0.3} className="vg-card rounded-xl p-6 space-y-5">
             <div className="flex items-center gap-2 mb-1">
-              <Monitor className="w-4 h-4 text-blue-400" />
+              <Monitor className="w-4 h-4 text-[#bcb8b1]" />
               <h2 className="font-display text-sm font-bold text-[#fafafa]">Display</h2>
             </div>
             {[
@@ -182,8 +182,8 @@ export default function PreferencesPage() {
                     onClick={() => update("defaultTab", t.value)}
                     className={`px-3 py-2 rounded-lg border font-mono text-xs text-left transition-all ${
                       prefs.defaultTab === t.value
-                        ? "border-blue-500/60 bg-blue-500/10 text-blue-400"
-                        : "border-[#1e1e1e] bg-white/5 text-[#a3a3a3] hover:border-blue-500/30 hover:text-[#fafafa]"
+                        ? "border-[#bcb8b1]/50 bg-[#bcb8b1]/08 text-[#bcb8b1]"
+                        : "border-[#1e1e1e] bg-white/5 text-[#a3a3a3] hover:border-[#bcb8b1]/20 hover:text-[#fafafa]"
                     }`}
                   >
                     {t.label}

@@ -35,7 +35,7 @@ function SocialButton({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="flex items-center justify-center gap-3 w-full py-3 px-4 rounded-lg border border-[#1e1e1e] bg-white/5 hover:bg-white/10 hover:border-blue-500/40 text-[#fafafa] font-mono text-xs uppercase tracking-widest transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+      className="flex items-center justify-center gap-3 w-full py-3 px-4 rounded-lg border border-[#1e1e1e] bg-white/5 hover:bg-white/10 hover:border-[#bcb8b1]/40 text-[#fafafa] font-mono text-xs uppercase tracking-widest transition-all disabled:opacity-50 disabled:cursor-not-allowed"
     >
       {children}
     </button>
@@ -130,7 +130,7 @@ export default function CreateAccount() {
         {/* Logo */}
         <motion.div variants={fadeUp} custom={0} className="flex items-center justify-center gap-2 mb-8">
           <Link to="/" className="flex items-center gap-2 group">
-            <Radio className="w-5 h-5 text-blue-400 group-hover:text-blue-300 transition-colors" />
+            <Radio className="w-5 h-5 text-[#bcb8b1] group-hover:text-[#ccc9c3] transition-colors" />
             <span className="font-display text-sm font-bold tracking-wider text-[#fafafa]">VoiceGuard AI</span>
           </Link>
         </motion.div>
@@ -177,7 +177,7 @@ export default function CreateAccount() {
                 value={name}
                 onChange={(e) => { setName(e.target.value); clearError(); }}
                 required
-                className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-blue-500/60 rounded-lg pl-10 pr-4 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono"
+                className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-[#bcb8b1]/50 rounded-lg pl-10 pr-4 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono"
               />
             </div>
 
@@ -190,7 +190,7 @@ export default function CreateAccount() {
                 value={email}
                 onChange={(e) => { setEmail(e.target.value); clearError(); }}
                 required
-                className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-blue-500/60 rounded-lg pl-10 pr-4 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono"
+                className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-[#bcb8b1]/50 rounded-lg pl-10 pr-4 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono"
               />
             </div>
 
@@ -203,7 +203,7 @@ export default function CreateAccount() {
                 value={password}
                 onChange={(e) => { setPassword(e.target.value); clearError(); }}
                 required
-                className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-blue-500/60 rounded-lg pl-10 pr-10 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono"
+                className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-[#bcb8b1]/50 rounded-lg pl-10 pr-10 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono"
               />
               <button
                 type="button"
@@ -225,8 +225,8 @@ export default function CreateAccount() {
                   const ok = rule.test(password);
                   return (
                     <div key={rule.label} className="flex items-center gap-2">
-                      <CheckCircle2 className={`w-3 h-3 transition-colors ${ok ? "text-blue-400" : "text-[#a3a3a3]"}`} />
-                      <span className={`font-mono text-xs transition-colors ${ok ? "text-blue-400" : "text-[#a3a3a3]"}`}>
+                      <CheckCircle2 className={`w-3 h-3 transition-colors ${ok ? "text-[#bcb8b1]" : "text-[#a3a3a3]"}`} />
+                      <span className={`font-mono text-xs transition-colors ${ok ? "text-[#bcb8b1]" : "text-[#a3a3a3]"}`}>
                         {rule.label}
                       </span>
                     </div>
@@ -254,7 +254,7 @@ export default function CreateAccount() {
 
           <p className="text-center text-xs text-[#a3a3a3] font-mono mt-6">
             Already have an account?{" "}
-            <Link to="/sign-in" className="text-blue-400 hover:text-blue-300 transition-colors">
+            <Link to="/sign-in" className="text-[#bcb8b1] hover:text-[#ccc9c3] transition-colors">
               Sign in →
             </Link>
           </p>

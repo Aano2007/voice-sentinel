@@ -78,11 +78,11 @@ export function Navbar() {
     const dim = size === "sm" ? "w-7 h-7" : "w-14 h-14";
     const text = size === "sm" ? "text-xs" : "text-lg";
     return (
-      <div className={`${dim} rounded-full bg-blue-500/20 border border-blue-500/40 flex items-center justify-center shrink-0 overflow-hidden`}>
+      <div className={`${dim} rounded-full bg-[#bcb8b1]/10 border border-[#bcb8b1]/30 flex items-center justify-center shrink-0 overflow-hidden`}>
         {photoURL ? (
           <img src={photoURL} alt={displayName} className={`${dim} rounded-full object-cover`} />
         ) : (
-          <span className={`font-mono ${text} font-bold text-blue-400`}>{initials}</span>
+          <span className={`font-mono ${text} font-bold text-[#bcb8b1]`}>{initials}</span>
         )}
       </div>
     );
@@ -138,7 +138,7 @@ export function Navbar() {
         <div ref={dropdownRef} className="relative">
           <button
             onClick={() => setOpen((o) => !o)}
-            className="flex items-center gap-2 px-2 py-1.5 rounded-lg border border-[#1e1e1e] bg-white/5 hover:bg-white/10 hover:border-blue-500/40 transition-all"
+            className="flex items-center gap-2 px-2 py-1.5 rounded-lg border border-[#1e1e1e] bg-white/5 hover:bg-white/10 hover:border-[#bcb8b1]/30 transition-all"
           >
             <Avatar size="sm" />
             <span className="hidden md:block font-mono text-xs text-[#fafafa] max-w-[100px] truncate">
@@ -164,11 +164,11 @@ export function Navbar() {
                 <div className="px-4 pt-5 pb-4 border-b border-[#1e1e1e] flex flex-col items-center gap-3">
                   {/* Avatar with camera overlay */}
                   <div className="relative group cursor-pointer" onClick={handlePhotoClick}>
-                    <div className="w-14 h-14 rounded-full bg-blue-500/20 border-2 border-blue-500/40 flex items-center justify-center overflow-hidden">
+                    <div className="w-14 h-14 rounded-full bg-[#bcb8b1]/10 border-2 border-[#bcb8b1]/30 flex items-center justify-center overflow-hidden">
                       {photoURL ? (
                         <img src={photoURL} alt={displayName} className="w-14 h-14 rounded-full object-cover" />
                       ) : (
-                        <span className="font-mono text-lg font-bold text-blue-400">{initials}</span>
+                        <span className="font-mono text-lg font-bold text-[#bcb8b1]">{initials}</span>
                       )}
                     </div>
 
@@ -203,7 +203,7 @@ export function Navbar() {
                   <div className="text-center">
                     <p className="font-mono text-sm font-bold text-[#fafafa]">{displayName}</p>
                     <p className="font-mono text-[11px] text-[#a3a3a3] mt-0.5">{email}</p>
-                    <p className="font-mono text-[10px] text-blue-500/70 mt-1 uppercase tracking-widest">
+                    <p className="font-mono text-[10px] text-[#bcb8b1]/70 mt-1 uppercase tracking-widest">
                       {uploading ? "Uploading photo..." : "Click photo to change"}
                     </p>
                   </div>
@@ -217,8 +217,8 @@ export function Navbar() {
                       onClick={item.action}
                       className="w-full flex items-center gap-3 px-4 py-2.5 hover:bg-white/5 transition-colors group"
                     >
-                      <div className="w-7 h-7 rounded-lg bg-[#1e1e1e] flex items-center justify-center shrink-0 group-hover:bg-blue-500/10 group-hover:border group-hover:border-blue-500/20 transition-all">
-                        <item.icon className="w-3.5 h-3.5 text-[#a3a3a3] group-hover:text-blue-400 transition-colors" />
+                      <div className="w-7 h-7 rounded-lg bg-[#1e1e1e] flex items-center justify-center shrink-0 group-hover:bg-[#bcb8b1]/08 group-hover:border group-hover:border-[#bcb8b1]/15 transition-all">
+                        <item.icon className="w-3.5 h-3.5 text-[#a3a3a3] group-hover:text-[#bcb8b1] transition-colors" />
                       </div>
                       <div className="text-left min-w-0">
                         <p className="font-mono text-xs text-[#fafafa]">{item.label}</p>

@@ -101,10 +101,10 @@ export default function ProfilePage() {
           {/* Avatar card */}
           <motion.div variants={fadeUp} custom={0.1} className="vg-card rounded-xl p-6 flex flex-col sm:flex-row items-center gap-6 mt-6">
             <div className="relative group cursor-pointer shrink-0" onClick={() => fileInputRef.current?.click()}>
-              <div className="w-20 h-20 rounded-full bg-blue-500/20 border-2 border-blue-500/40 flex items-center justify-center overflow-hidden">
+              <div className="w-20 h-20 rounded-full bg-[#bcb8b1]/10 border-2 border-[#bcb8b1]/30 flex items-center justify-center overflow-hidden">
                 {photoURL
                   ? <img src={photoURL} alt={displayName} className="w-20 h-20 rounded-full object-cover" />
-                  : <span className="font-mono text-2xl font-bold text-blue-400">{initials}</span>}
+                  : <span className="font-mono text-2xl font-bold text-[#bcb8b1]">{initials}</span>}
               </div>
               <div className="absolute inset-0 rounded-full bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                 {uploading ? <Loader2 className="w-6 h-6 text-white animate-spin" /> : <Camera className="w-6 h-6 text-white" />}
@@ -117,7 +117,7 @@ export default function ProfilePage() {
             <div>
               <p className="font-mono text-sm font-bold text-[#fafafa]">{user?.displayName || user?.email?.split("@")[0]}</p>
               <p className="font-mono text-xs text-[#a3a3a3] mt-0.5">{user?.email}</p>
-              <p className="font-mono text-[10px] text-blue-400 mt-2 uppercase tracking-widest">Click photo to change</p>
+              <p className="font-mono text-[10px] text-[#bcb8b1] mt-2 uppercase tracking-widest">Click photo to change</p>
             </div>
           </motion.div>
 
@@ -130,7 +130,7 @@ export default function ProfilePage() {
                 type="text"
                 value={displayName}
                 onChange={(e) => { setDisplayName(e.target.value); setSuccess(""); setError(""); }}
-                className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-blue-500/60 rounded-lg pl-10 pr-4 py-3 text-sm text-[#fafafa] outline-none transition-colors font-mono"
+                className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-[#bcb8b1]/50 rounded-lg pl-10 pr-4 py-3 text-sm text-[#fafafa] outline-none transition-colors font-mono"
                 placeholder="Your display name"
               />
             </div>
@@ -150,8 +150,8 @@ export default function ProfilePage() {
               { icon: Calendar, label: "Member Since",   value: joinedDate || "—" },
             ].map((row) => (
               <div key={row.label} className="flex items-center gap-4 py-3 border-b border-[#1e1e1e] last:border-0">
-                <div className="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center shrink-0">
-                  <row.icon className="w-4 h-4 text-blue-400" />
+                <div className="w-8 h-8 rounded-lg bg-[#bcb8b1]/08 border border-[#bcb8b1]/15 flex items-center justify-center shrink-0">
+                  <row.icon className="w-4 h-4 text-[#bcb8b1]" />
                 </div>
                 <div>
                   <p className="font-mono text-[10px] text-[#a3a3a3] uppercase tracking-wider">{row.label}</p>

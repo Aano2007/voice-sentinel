@@ -35,7 +35,7 @@ function SocialButton({
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="flex items-center justify-center gap-3 w-full py-3 px-4 rounded-lg border border-[#1e1e1e] bg-white/5 hover:bg-white/10 hover:border-blue-500/40 text-[#fafafa] font-mono text-xs uppercase tracking-widest transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+      className="flex items-center justify-center gap-3 w-full py-3 px-4 rounded-lg border border-[#1e1e1e] bg-white/5 hover:bg-white/10 hover:border-[#bcb8b1]/40 text-[#fafafa] font-mono text-xs uppercase tracking-widest transition-all disabled:opacity-50 disabled:cursor-not-allowed"
     >
       {children}
     </button>
@@ -138,7 +138,7 @@ export default function SignIn() {
         {/* Logo */}
         <motion.div variants={fadeUp} custom={0} className="flex items-center justify-center gap-2 mb-8">
           <Link to="/" className="flex items-center gap-2 group">
-            <Radio className="w-5 h-5 text-blue-400 group-hover:text-blue-300 transition-colors" />
+            <Radio className="w-5 h-5 text-[#bcb8b1] group-hover:text-[#ccc9c3] transition-colors" />
             <span className="font-display text-sm font-bold tracking-wider text-[#fafafa]">VoiceGuard AI</span>
           </Link>
         </motion.div>
@@ -164,11 +164,11 @@ export default function SignIn() {
                   animate={{ opacity: 1, scale: 1 }}
                   className="flex flex-col items-center gap-3 py-6 text-center"
                 >
-                  <div className="w-12 h-12 rounded-full bg-blue-500/10 border border-blue-500/30 flex items-center justify-center">
-                    <Mail className="w-6 h-6 text-blue-400" />
+                  <div className="w-12 h-12 rounded-full bg-[#bcb8b1]/08 border border-[#bcb8b1]/20 flex items-center justify-center">
+                    <Mail className="w-6 h-6 text-[#bcb8b1]" />
                   </div>
                   <p className="text-[#fafafa] font-mono text-sm">Reset link sent!</p>
-                  <p className="text-[#a3a3a3] text-xs">Check your inbox at <span className="text-blue-400">{email}</span></p>
+                  <p className="text-[#a3a3a3] text-xs">Check your inbox at <span className="text-[#bcb8b1]">{email}</span></p>
                   <button onClick={() => { setResetMode(false); setResetSent(false); }} className="btn-ghost mt-2 text-xs py-2 px-4">
                     Back to Sign In
                   </button>
@@ -182,7 +182,7 @@ export default function SignIn() {
                       placeholder="Email address"
                       value={email}
                       onChange={(e) => { setEmail(e.target.value); clearError(); }}
-                      className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-blue-500/60 rounded-lg pl-10 pr-4 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono"
+                      className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-[#bcb8b1]/50 rounded-lg pl-10 pr-4 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono"
                     />
                   </div>
 
@@ -217,10 +217,10 @@ export default function SignIn() {
                 <motion.div
                   initial={{ opacity: 0, y: -8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="flex items-start gap-2 text-blue-300 text-xs font-mono bg-blue-500/10 border border-blue-500/30 rounded-lg px-3 py-3 mb-6"
+                  className="flex items-start gap-2 text-[#ccc9c3] text-xs font-mono bg-[#bcb8b1]/08 border border-[#bcb8b1]/20 rounded-lg px-3 py-3 mb-6"
                 >
                   <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
-                  <span>An account with <span className="text-blue-400">{email}</span> already exists. Sign in below.</span>
+                  <span>An account with <span className="text-[#bcb8b1]">{email}</span> already exists. Sign in below.</span>
                 </motion.div>
               )}
 
@@ -253,7 +253,7 @@ export default function SignIn() {
                     value={email}
                     onChange={(e) => { setEmail(e.target.value); clearError(); }}
                     required
-                    className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-blue-500/60 rounded-lg pl-10 pr-4 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono"
+                    className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-[#bcb8b1]/50 rounded-lg pl-10 pr-4 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono"
                   />
                 </div>
 
@@ -265,7 +265,7 @@ export default function SignIn() {
                     value={password}
                     onChange={(e) => { setPassword(e.target.value); clearError(); }}
                     required
-                    className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-blue-500/60 rounded-lg pl-10 pr-10 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono"
+                    className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-[#bcb8b1]/50 rounded-lg pl-10 pr-10 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono"
                   />
                   <button
                     type="button"
@@ -280,7 +280,7 @@ export default function SignIn() {
                   <button
                     type="button"
                     onClick={() => { setResetMode(true); clearError(); }}
-                    className="font-mono text-xs text-blue-400 hover:text-blue-300 transition-colors"
+                    className="font-mono text-xs text-[#bcb8b1] hover:text-[#ccc9c3] transition-colors"
                   >
                     Forgot password?
                   </button>
@@ -305,7 +305,7 @@ export default function SignIn() {
 
               <p className="text-center text-xs text-[#a3a3a3] font-mono mt-6">
                 Don't have an account?{" "}
-                <Link to="/create-account" className="text-blue-400 hover:text-blue-300 transition-colors">
+                <Link to="/create-account" className="text-[#bcb8b1] hover:text-[#ccc9c3] transition-colors">
                   Create one →
                 </Link>
               </p>
