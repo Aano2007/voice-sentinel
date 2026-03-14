@@ -67,10 +67,10 @@ export function Navbar() {
   const email = user?.email ?? "";
 
   const menuItems = [
-    { icon: User,     label: "My Profile",        desc: "View account details",      action: () => setOpen(false) },
-    { icon: Shield,   label: "Security Settings",  desc: "Manage auth & privacy",     action: () => setOpen(false) },
-    { icon: BarChart3,label: "My Detections",      desc: "View all past analyses",    action: () => { navigate("/history"); setOpen(false); } },
-    { icon: Settings, label: "Preferences",        desc: "Customize your experience", action: () => setOpen(false) },
+    { icon: User,      label: "My Profile",       desc: "View account details",      action: () => { navigate("/profile");     setOpen(false); } },
+    { icon: Shield,    label: "Security Settings", desc: "Manage auth & privacy",     action: () => { navigate("/security");    setOpen(false); } },
+    { icon: BarChart3, label: "My Detections",     desc: "View all past analyses",    action: () => { navigate("/history");     setOpen(false); } },
+    { icon: Settings,  label: "Preferences",       desc: "Customize your experience", action: () => { navigate("/preferences"); setOpen(false); } },
   ];
 
   // Shared avatar component

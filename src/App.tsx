@@ -9,6 +9,9 @@ import SignIn from "./pages/SignIn.tsx";
 import CreateAccount from "./pages/CreateAccount.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import History from "./pages/History.tsx";
+import ProfilePage from "./pages/ProfilePage.tsx";
+import SecurityPage from "./pages/SecurityPage.tsx";
+import PreferencesPage from "./pages/PreferencesPage.tsx";
 import NotFound from "./pages/NotFound.tsx";
 
 const queryClient = new QueryClient();
@@ -38,6 +41,9 @@ const App = () => (
             <Route path="/create-account" element={<PublicRoute><CreateAccount /></PublicRoute>} />
             <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
             <Route path="/history" element={<ProtectedRoute><History /></ProtectedRoute>} />
+            <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+            <Route path="/security" element={<ProtectedRoute><SecurityPage /></ProtectedRoute>} />
+            <Route path="/preferences" element={<ProtectedRoute><PreferencesPage /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
