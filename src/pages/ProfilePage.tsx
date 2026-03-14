@@ -80,10 +80,10 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#030303] text-[#fafafa]">
+    <div className="min-h-screen bg-[#0f1117] text-[#e8eaf0]">
       {/* Header */}
-      <div className="border-b border-[#1e1e1e] px-6 py-4 flex items-center gap-4 bg-[rgba(14,14,14,0.8)] backdrop-blur-xl sticky top-0 z-40">
-        <button onClick={() => navigate("/dashboard")} className="flex items-center gap-2 text-[#a3a3a3] hover:text-[#fafafa] transition-colors font-mono text-xs">
+      <div className="border-b border-[#232a3d] px-6 py-4 flex items-center gap-4 bg-[rgba(13,16,24,0.85)] backdrop-blur-xl sticky top-0 z-40">
+        <button onClick={() => navigate("/dashboard")} className="flex items-center gap-2 text-[#7a8499] hover:text-[#e8eaf0] transition-colors font-mono text-xs">
           <ArrowLeft className="w-4 h-4" /> Back to Dashboard
         </button>
       </div>
@@ -94,43 +94,43 @@ export default function ProfilePage() {
           {/* Title */}
           <motion.div variants={fadeUp} custom={0}>
             <p className="section-label mb-2">Account</p>
-            <h1 className="font-display text-2xl font-bold text-[#fafafa]">My Profile</h1>
-            <p className="text-[#a3a3a3] text-sm mt-1">Manage your personal information and profile photo.</p>
+            <h1 className="font-display text-2xl font-bold text-[#e8eaf0]">My Profile</h1>
+            <p className="text-[#7a8499] text-sm mt-1">Manage your personal information and profile photo.</p>
           </motion.div>
 
           {/* Avatar card */}
           <motion.div variants={fadeUp} custom={0.1} className="vg-card rounded-xl p-6 flex flex-col sm:flex-row items-center gap-6 mt-6">
             <div className="relative group cursor-pointer shrink-0" onClick={() => fileInputRef.current?.click()}>
-              <div className="w-20 h-20 rounded-full bg-[#bcb8b1]/10 border-2 border-[#bcb8b1]/30 flex items-center justify-center overflow-hidden">
+              <div className="w-20 h-20 rounded-full bg-[#818cf8]/10 border-2 border-[#818cf8]/30 flex items-center justify-center overflow-hidden">
                 {photoURL
                   ? <img src={photoURL} alt={displayName} className="w-20 h-20 rounded-full object-cover" />
-                  : <span className="font-mono text-2xl font-bold text-[#bcb8b1]">{initials}</span>}
+                  : <span className="font-mono text-2xl font-bold text-[#818cf8]">{initials}</span>}
               </div>
               <div className="absolute inset-0 rounded-full bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                 {uploading ? <Loader2 className="w-6 h-6 text-white animate-spin" /> : <Camera className="w-6 h-6 text-white" />}
               </div>
               {uploading && (
-                <motion.div className="absolute inset-0 rounded-full border-2 border-blue-400" animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 1, repeat: Infinity }} />
+                <motion.div className="absolute inset-0 rounded-full border-2 border-[#818cf8]" animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 1, repeat: Infinity }} />
               )}
             </div>
             <input ref={fileInputRef} type="file" accept="image/png,image/jpeg,image/webp" className="hidden" onChange={handlePhotoChange} />
             <div>
-              <p className="font-mono text-sm font-bold text-[#fafafa]">{user?.displayName || user?.email?.split("@")[0]}</p>
-              <p className="font-mono text-xs text-[#a3a3a3] mt-0.5">{user?.email}</p>
-              <p className="font-mono text-[10px] text-[#bcb8b1] mt-2 uppercase tracking-widest">Click photo to change</p>
+              <p className="font-mono text-sm font-bold text-[#e8eaf0]">{user?.displayName || user?.email?.split("@")[0]}</p>
+              <p className="font-mono text-xs text-[#7a8499] mt-0.5">{user?.email}</p>
+              <p className="font-mono text-[10px] text-[#818cf8] mt-2 uppercase tracking-widest">Click photo to change</p>
             </div>
           </motion.div>
 
           {/* Edit name */}
           <motion.div variants={fadeUp} custom={0.2} className="vg-card rounded-xl p-6 space-y-4">
-            <h2 className="font-display text-sm font-bold text-[#fafafa]">Display Name</h2>
+            <h2 className="font-display text-sm font-bold text-[#e8eaf0]">Display Name</h2>
             <div className="relative">
-              <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#a3a3a3]" />
+              <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#3d4a63]" />
               <input
                 type="text"
                 value={displayName}
                 onChange={(e) => { setDisplayName(e.target.value); setSuccess(""); setError(""); }}
-                className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-[#bcb8b1]/50 rounded-lg pl-10 pr-4 py-3 text-sm text-[#fafafa] outline-none transition-colors font-mono"
+                className="w-full bg-[#0b0d14] border border-[#232a3d] focus:border-[#818cf8]/60 rounded-lg pl-10 pr-4 py-3 text-sm text-[#e8eaf0] outline-none transition-colors font-mono"
                 placeholder="Your display name"
               />
             </div>
@@ -143,19 +143,19 @@ export default function ProfilePage() {
 
           {/* Account info */}
           <motion.div variants={fadeUp} custom={0.3} className="vg-card rounded-xl p-6 space-y-4">
-            <h2 className="font-display text-sm font-bold text-[#fafafa]">Account Information</h2>
+            <h2 className="font-display text-sm font-bold text-[#e8eaf0]">Account Information</h2>
             {[
               { icon: Mail,     label: "Email Address", value: user?.email ?? "—" },
               { icon: Shield,   label: "Sign-in Method", value: providerLabel },
               { icon: Calendar, label: "Member Since",   value: joinedDate || "—" },
             ].map((row) => (
-              <div key={row.label} className="flex items-center gap-4 py-3 border-b border-[#1e1e1e] last:border-0">
-                <div className="w-8 h-8 rounded-lg bg-[#bcb8b1]/08 border border-[#bcb8b1]/15 flex items-center justify-center shrink-0">
-                  <row.icon className="w-4 h-4 text-[#bcb8b1]" />
+              <div key={row.label} className="flex items-center gap-4 py-3 border-b border-[#232a3d] last:border-0">
+                <div className="w-8 h-8 rounded-lg bg-[#818cf8]/08 border border-[#818cf8]/15 flex items-center justify-center shrink-0">
+                  <row.icon className="w-4 h-4 text-[#818cf8]" />
                 </div>
                 <div>
-                  <p className="font-mono text-[10px] text-[#a3a3a3] uppercase tracking-wider">{row.label}</p>
-                  <p className="font-mono text-sm text-[#fafafa]">{row.value}</p>
+                  <p className="font-mono text-[10px] text-[#7a8499] uppercase tracking-wider">{row.label}</p>
+                  <p className="font-mono text-sm text-[#e8eaf0]">{row.value}</p>
                 </div>
               </div>
             ))}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Radio, Eye, EyeOff, Mail, Lock, AlertCircle, Loader2 } from "lucide-react";
@@ -21,21 +21,13 @@ function Grain() {
   );
 }
 
-function SocialButton({
-  onClick,
-  disabled,
-  children,
-}: {
-  onClick: () => void;
-  disabled: boolean;
-  children: React.ReactNode;
-}) {
+function SocialButton({ onClick, disabled, children }: { onClick: () => void; disabled: boolean; children: React.ReactNode }) {
   return (
     <button
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="flex items-center justify-center gap-3 w-full py-3 px-4 rounded-lg border border-[#1e1e1e] bg-white/5 hover:bg-white/10 hover:border-[#bcb8b1]/40 text-[#fafafa] font-mono text-xs uppercase tracking-widest transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+      className="flex items-center justify-center gap-3 w-full py-3 px-4 rounded-lg border border-[#232a3d] bg-white/5 hover:bg-white/8 hover:border-[#818cf8]/40 text-[#e8eaf0] font-mono text-xs uppercase tracking-widest transition-all disabled:opacity-50 disabled:cursor-not-allowed"
     >
       {children}
     </button>
@@ -119,15 +111,13 @@ export default function SignIn() {
     }
   };
 
-  return (
-    <div className="min-h-screen bg-[#030303] text-[#fafafa] flex items-center justify-center px-4 cyber-grid relative overflow-hidden">
-      <Grain />
+  const inputCls = "w-full bg-[#0b0d14] border border-[#232a3d] focus:border-[#818cf8]/60 rounded-lg pl-10 pr-4 py-3 text-sm text-[#e8eaf0] placeholder-[#3d4a63] outline-none transition-colors font-mono";
+  const inputIconCls = "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#3d4a63]";
 
-      {/* Blue glow */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(59,130,246,0.07) 0%, transparent 70%)" }}
-      />
+  return (
+    <div className="min-h-screen bg-[#0f1117] text-[#e8eaf0] flex items-center justify-center px-4 cyber-grid relative overflow-hidden">
+      <Grain />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(99,102,241,0.09) 0%, transparent 70%)" }} />
 
       <motion.div
         className="relative z-10 w-full max-w-md"
@@ -138,8 +128,8 @@ export default function SignIn() {
         {/* Logo */}
         <motion.div variants={fadeUp} custom={0} className="flex items-center justify-center gap-2 mb-8">
           <Link to="/" className="flex items-center gap-2 group">
-            <Radio className="w-5 h-5 text-[#bcb8b1] group-hover:text-[#ccc9c3] transition-colors" />
-            <span className="font-display text-sm font-bold tracking-wider text-[#fafafa]">VoiceGuard AI</span>
+            <Radio className="w-5 h-5 text-[#818cf8] group-hover:text-[#a5b4fc] transition-colors" />
+            <span className="font-display text-sm font-bold tracking-wider text-[#e8eaf0]">VoiceGuard AI</span>
           </Link>
         </motion.div>
 
@@ -147,28 +137,21 @@ export default function SignIn() {
         <motion.div
           variants={fadeUp}
           custom={0.1}
-          className="rounded-2xl border border-[#1e1e1e] bg-[rgba(20,20,20,0.7)] backdrop-blur-xl p-8"
-          style={{ boxShadow: "0 0 40px rgba(59,130,246,0.06)" }}
+          className="rounded-2xl border border-[#232a3d] bg-[rgba(19,23,32,0.85)] backdrop-blur-xl p-8"
+          style={{ boxShadow: "0 0 40px rgba(129,140,248,0.08)" }}
         >
           {resetMode ? (
-            /* ── Forgot password ── */
             <>
-              <h1 className="font-display text-2xl font-bold text-[#fafafa] mb-1">Reset Password</h1>
-              <p className="text-[#a3a3a3] text-sm mb-6">
-                Enter your email and we'll send a reset link.
-              </p>
+              <h1 className="font-display text-2xl font-bold text-[#e8eaf0] mb-1">Reset Password</h1>
+              <p className="text-[#7a8499] text-sm mb-6">Enter your email and we'll send a reset link.</p>
 
               {resetSent ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="flex flex-col items-center gap-3 py-6 text-center"
-                >
-                  <div className="w-12 h-12 rounded-full bg-[#bcb8b1]/08 border border-[#bcb8b1]/20 flex items-center justify-center">
-                    <Mail className="w-6 h-6 text-[#bcb8b1]" />
+                <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center gap-3 py-6 text-center">
+                  <div className="w-12 h-12 rounded-full bg-[#818cf8]/10 border border-[#818cf8]/25 flex items-center justify-center">
+                    <Mail className="w-6 h-6 text-[#818cf8]" />
                   </div>
-                  <p className="text-[#fafafa] font-mono text-sm">Reset link sent!</p>
-                  <p className="text-[#a3a3a3] text-xs">Check your inbox at <span className="text-[#bcb8b1]">{email}</span></p>
+                  <p className="text-[#e8eaf0] font-mono text-sm">Reset link sent!</p>
+                  <p className="text-[#7a8499] text-xs">Check your inbox at <span className="text-[#818cf8]">{email}</span></p>
                   <button onClick={() => { setResetMode(false); setResetSent(false); }} className="btn-ghost mt-2 text-xs py-2 px-4">
                     Back to Sign In
                   </button>
@@ -176,55 +159,39 @@ export default function SignIn() {
               ) : (
                 <form onSubmit={handleReset} className="space-y-4">
                   <div className="relative">
-                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#a3a3a3]" />
-                    <input
-                      type="email"
-                      placeholder="Email address"
-                      value={email}
-                      onChange={(e) => { setEmail(e.target.value); clearError(); }}
-                      className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-[#bcb8b1]/50 rounded-lg pl-10 pr-4 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono"
-                    />
+                    <Mail className={inputIconCls} />
+                    <input type="email" placeholder="Email address" value={email} onChange={(e) => { setEmail(e.target.value); clearError(); }} className={inputCls} />
                   </div>
-
                   {error && (
                     <div className="flex items-center gap-2 text-red-400 text-xs font-mono bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">
-                      <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-                      {error}
+                      <AlertCircle className="w-3.5 h-3.5 shrink-0" />{error}
                     </div>
                   )}
-
                   <button type="submit" disabled={loading} className="btn-primary w-full flex items-center justify-center gap-2">
-                    {loading && <Loader2 className="w-4 h-4 animate-spin" />}
-                    Send Reset Link
+                    {loading && <Loader2 className="w-4 h-4 animate-spin" />}Send Reset Link
                   </button>
-
-                  <button type="button" onClick={() => { setResetMode(false); clearError(); }} className="w-full text-center text-xs text-[#a3a3a3] hover:text-[#fafafa] font-mono transition-colors">
+                  <button type="button" onClick={() => { setResetMode(false); clearError(); }} className="w-full text-center text-xs text-[#7a8499] hover:text-[#e8eaf0] font-mono transition-colors">
                     ← Back to Sign In
                   </button>
                 </form>
               )}
             </>
           ) : (
-            /* ── Sign In ── */
             <>
-              <h1 className="font-display text-2xl font-bold text-[#fafafa] mb-1">Welcome back</h1>
-              <p className="text-[#a3a3a3] text-sm mb-6">
-                Sign in to your VoiceGuard AI account.
-              </p>
+              <h1 className="font-display text-2xl font-bold text-[#e8eaf0] mb-1">Welcome back</h1>
+              <p className="text-[#7a8499] text-sm mb-6">Sign in to your VoiceGuard AI account.</p>
 
-              {/* Already-exists banner */}
               {accountExists && (
                 <motion.div
                   initial={{ opacity: 0, y: -8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="flex items-start gap-2 text-[#ccc9c3] text-xs font-mono bg-[#bcb8b1]/08 border border-[#bcb8b1]/20 rounded-lg px-3 py-3 mb-6"
+                  className="flex items-start gap-2 text-[#a5b4fc] text-xs font-mono bg-[#818cf8]/08 border border-[#818cf8]/20 rounded-lg px-3 py-3 mb-6"
                 >
                   <AlertCircle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
-                  <span>An account with <span className="text-[#bcb8b1]">{email}</span> already exists. Sign in below.</span>
+                  <span>An account with <span className="text-[#818cf8]">{email}</span> already exists. Sign in below.</span>
                 </motion.div>
               )}
 
-              {/* Social buttons */}
               <div className="mb-6">
                 <SocialButton onClick={() => handleSocial("google")} disabled={loading}>
                   <svg className="w-4 h-4" viewBox="0 0 24 24">
@@ -238,82 +205,58 @@ export default function SignIn() {
               </div>
 
               <div className="flex items-center gap-3 mb-6">
-                <div className="flex-1 h-px bg-[#1e1e1e]" />
-                <span className="font-mono text-xs text-[#a3a3a3] uppercase tracking-widest">or</span>
-                <div className="flex-1 h-px bg-[#1e1e1e]" />
+                <div className="flex-1 h-px bg-[#232a3d]" />
+                <span className="font-mono text-xs text-[#3d4a63] uppercase tracking-widest">or</span>
+                <div className="flex-1 h-px bg-[#232a3d]" />
               </div>
 
-              {/* Email form */}
               <form onSubmit={handleEmailSignIn} className="space-y-4">
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#a3a3a3]" />
-                  <input
-                    type="email"
-                    placeholder="Email address"
-                    value={email}
-                    onChange={(e) => { setEmail(e.target.value); clearError(); }}
-                    required
-                    className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-[#bcb8b1]/50 rounded-lg pl-10 pr-4 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono"
-                  />
+                  <Mail className={inputIconCls} />
+                  <input type="email" placeholder="Email address" value={email} onChange={(e) => { setEmail(e.target.value); clearError(); }} required className={inputCls} />
                 </div>
 
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#a3a3a3]" />
+                  <Lock className={inputIconCls} />
                   <input
                     type={showPass ? "text" : "password"}
                     placeholder="Password"
                     value={password}
                     onChange={(e) => { setPassword(e.target.value); clearError(); }}
                     required
-                    className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-[#bcb8b1]/50 rounded-lg pl-10 pr-10 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono"
+                    className="w-full bg-[#0b0d14] border border-[#232a3d] focus:border-[#818cf8]/60 rounded-lg pl-10 pr-10 py-3 text-sm text-[#e8eaf0] placeholder-[#3d4a63] outline-none transition-colors font-mono"
                   />
-                  <button
-                    type="button"
-                    onClick={() => setShowPass((p) => !p)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#a3a3a3] hover:text-[#fafafa] transition-colors"
-                  >
+                  <button type="button" onClick={() => setShowPass((p) => !p)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#3d4a63] hover:text-[#e8eaf0] transition-colors">
                     {showPass ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
 
                 <div className="flex justify-end">
-                  <button
-                    type="button"
-                    onClick={() => { setResetMode(true); clearError(); }}
-                    className="font-mono text-xs text-[#bcb8b1] hover:text-[#ccc9c3] transition-colors"
-                  >
+                  <button type="button" onClick={() => { setResetMode(true); clearError(); }} className="font-mono text-xs text-[#818cf8] hover:text-[#a5b4fc] transition-colors">
                     Forgot password?
                   </button>
                 </div>
 
                 {error && (
                   <div className="flex items-center gap-2 text-red-400 text-xs font-mono bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">
-                    <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-                    {error}
+                    <AlertCircle className="w-3.5 h-3.5 shrink-0" />{error}
                   </div>
                 )}
 
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="btn-primary w-full flex items-center justify-center gap-2"
-                >
-                  {loading && <Loader2 className="w-4 h-4 animate-spin" />}
-                  Sign In
+                <button type="submit" disabled={loading} className="btn-primary w-full flex items-center justify-center gap-2">
+                  {loading && <Loader2 className="w-4 h-4 animate-spin" />}Sign In
                 </button>
               </form>
 
-              <p className="text-center text-xs text-[#a3a3a3] font-mono mt-6">
+              <p className="text-center text-xs text-[#7a8499] font-mono mt-6">
                 Don't have an account?{" "}
-                <Link to="/create-account" className="text-[#bcb8b1] hover:text-[#ccc9c3] transition-colors">
-                  Create one →
-                </Link>
+                <Link to="/create-account" className="text-[#818cf8] hover:text-[#a5b4fc] transition-colors">Create one →</Link>
               </p>
             </>
           )}
         </motion.div>
 
-        <motion.p variants={fadeUp} custom={0.3} className="text-center text-xs text-[#a3a3a3] font-mono mt-6">
+        <motion.p variants={fadeUp} custom={0.3} className="text-center text-xs text-[#7a8499] font-mono mt-6">
           All audio processed locally — zero data exposure
         </motion.p>
       </motion.div>

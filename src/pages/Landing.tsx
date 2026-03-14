@@ -13,17 +13,17 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
-// Stone palette tokens
+// Slate-indigo palette tokens
 const S = {
-  accent:     "#bcb8b1",
-  accentLight:"#ccc9c3",
-  accentDim:  "#6b6760",
-  border:     "#2e2c29",
-  borderDim:  "rgba(188,184,177,0.15)",
-  bg:         "#0e0d0c",
-  card:       "rgba(26,25,23,0.6)",
-  fg:         "#f5f4f2",
-  muted:      "#8a8680",
+  accent:     "#818cf8",
+  accentLight:"#a5b4fc",
+  accentDim:  "#4f5a9e",
+  border:     "#232a3d",
+  borderDim:  "rgba(129,140,248,0.18)",
+  bg:         "#0f1117",
+  card:       "rgba(19,23,32,0.65)",
+  fg:         "#e8eaf0",
+  muted:      "#7a8499",
 };
 
 function SectionLabel({ children }: { children: React.ReactNode }) {
@@ -42,7 +42,7 @@ function Waveform() {
         <motion.div
           key={i}
           className="w-[3px] rounded-full"
-          style={{ background: `linear-gradient(to top, ${S.accentDim}, ${S.accent})`, originY: 1 }}
+          style={{ background: `linear-gradient(to top, ${S.accentDim}, ${S.accentLight})`, originY: 1 }}
           animate={{ scaleY: [0.2, 1, 0.3, 0.8, 0.2] }}
           transition={{ duration: 1.4 + (i % 7) * 0.15, repeat: Infinity, ease: "easeInOut", delay: i * 0.03 }}
           initial={{ height: 40 }}
@@ -72,7 +72,7 @@ function ScrollProgress() {
   return (
     <motion.div
       className="fixed right-0 top-0 w-[2px] origin-top z-50"
-      style={{ scaleY, height: "100vh", background: `linear-gradient(to bottom, ${S.accent}, ${S.accentDim})` }}
+      style={{ scaleY, height: "100vh", background: "linear-gradient(to bottom, #818cf8, #6366f1)" }}
     />
   );
 }
@@ -81,7 +81,7 @@ function ScrollProgress() {
 function Navbar({ onGetStarted }: { onGetStarted: () => void }) {
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   return (
-    <nav className="fixed top-0 left-0 right-0 z-40 backdrop-blur-md" style={{ borderBottom: `1px solid ${S.border}`, background: `${S.bg}cc` }}>
+    <nav className="fixed top-0 left-0 right-0 z-40 backdrop-blur-md" style={{ borderBottom: `1px solid ${S.border}`, background: "rgba(15,17,23,0.88)" }}>
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Radio className="w-5 h-5" style={{ color: S.accent }} />
@@ -108,13 +108,13 @@ function Hero({ onGetStarted }: { onGetStarted: () => void }) {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center pt-16 overflow-hidden cyber-grid">
       <div className="scan-line absolute inset-0 pointer-events-none" style={{ height: "30%" }} />
-      <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 60% 40% at 50% 60%, rgba(188,184,177,0.06) 0%, transparent 70%)` }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse 60% 40% at 50% 60%, rgba(99,102,241,0.1) 0%, transparent 70%)` }} />
 
       <motion.div className="relative z-10 flex flex-col items-center text-center px-6 max-w-4xl" initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.15 } } }}>
 
         {/* Badge */}
         <motion.div variants={fadeUp}>
-          <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest px-4 py-2 rounded-full mb-8" style={{ color: S.accent, border: `1px solid ${S.borderDim}`, background: "rgba(188,184,177,0.05)" }}>
+          <span className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest px-4 py-2 rounded-full mb-8" style={{ color: S.accent, border: `1px solid ${S.borderDim}`, background: "rgba(129,140,248,0.07)" }}>
             <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: S.accent }} />
             AI-Powered Deepfake Voice Detection
           </span>
@@ -208,7 +208,7 @@ function Features() {
           {features.map((f, i) => (
             <motion.div key={f.title} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={{ ...fadeUp, visible: { ...fadeUp.visible, transition: { duration: 0.6, delay: i * 0.08 } } }}>
               <Card className="h-full flex flex-col gap-4">
-                <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: "rgba(188,184,177,0.08)", border: `1px solid ${S.borderDim}` }}>
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: "rgba(129,140,248,0.08)", border: `1px solid ${S.borderDim}` }}>
                   <f.icon className="w-5 h-5" style={{ color: S.accent }} />
                 </div>
                 <h3 className="font-display text-sm font-bold" style={{ color: S.fg }}>{f.title}</h3>
@@ -244,7 +244,7 @@ function UseCases() {
           {useCases.map((u, i) => (
             <motion.div key={u.title} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={{ ...fadeUp, visible: { ...fadeUp.visible, transition: { duration: 0.6, delay: i * 0.08 } } }}>
               <Card className="h-full flex flex-col gap-4">
-                <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: "rgba(188,184,177,0.08)", border: `1px solid ${S.borderDim}` }}>
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: "rgba(129,140,248,0.08)", border: `1px solid ${S.borderDim}` }}>
                   <u.icon className="w-5 h-5" style={{ color: S.accent }} />
                 </div>
                 <h3 className="font-display text-sm font-bold" style={{ color: S.fg }}>{u.title}</h3>

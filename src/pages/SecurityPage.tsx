@@ -55,9 +55,9 @@ export default function SecurityPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#030303] text-[#fafafa]">
-      <div className="border-b border-[#1e1e1e] px-6 py-4 flex items-center gap-4 bg-[rgba(14,14,14,0.8)] backdrop-blur-xl sticky top-0 z-40">
-        <button onClick={() => navigate("/dashboard")} className="flex items-center gap-2 text-[#a3a3a3] hover:text-[#fafafa] transition-colors font-mono text-xs">
+    <div className="min-h-screen bg-[#0f1117] text-[#e8eaf0]">
+      <div className="border-b border-[#232a3d] px-6 py-4 flex items-center gap-4 bg-[rgba(13,16,24,0.85)] backdrop-blur-xl sticky top-0 z-40">
+        <button onClick={() => navigate("/dashboard")} className="flex items-center gap-2 text-[#7a8499] hover:text-[#e8eaf0] transition-colors font-mono text-xs">
           <ArrowLeft className="w-4 h-4" /> Back to Dashboard
         </button>
       </div>
@@ -67,26 +67,26 @@ export default function SecurityPage() {
 
           <motion.div variants={fadeUp} custom={0}>
             <p className="section-label mb-2">Account</p>
-            <h1 className="font-display text-2xl font-bold text-[#fafafa]">Security Settings</h1>
-            <p className="text-[#a3a3a3] text-sm mt-1">Manage your password and account security.</p>
+            <h1 className="font-display text-2xl font-bold text-[#e8eaf0]">Security Settings</h1>
+            <p className="text-[#7a8499] text-sm mt-1">Manage your password and account security.</p>
           </motion.div>
 
           {/* Security overview */}
           <motion.div variants={fadeUp} custom={0.1} className="vg-card rounded-xl p-6 mt-6">
-            <h2 className="font-display text-sm font-bold text-[#fafafa] mb-4">Security Overview</h2>
+            <h2 className="font-display text-sm font-bold text-[#e8eaf0] mb-4">Security Overview</h2>
             <div className="space-y-3">
               {[
                 { icon: Shield,      label: "Sign-in Method",    value: isEmailProvider ? "Email & Password" : "OAuth (Google)", ok: true },
                 { icon: Smartphone,  label: "Active Sessions",   value: "1 device (current)", ok: true },
                 { icon: Lock,        label: "Password Strength", value: isEmailProvider ? "Protected" : "Managed by provider", ok: true },
               ].map((row) => (
-                <div key={row.label} className="flex items-center gap-4 py-3 border-b border-[#1e1e1e] last:border-0">
-                  <div className="w-8 h-8 rounded-lg bg-[#bcb8b1]/08 border border-[#bcb8b1]/15 flex items-center justify-center shrink-0">
-                    <row.icon className="w-4 h-4 text-[#bcb8b1]" />
+                <div key={row.label} className="flex items-center gap-4 py-3 border-b border-[#232a3d] last:border-0">
+                  <div className="w-8 h-8 rounded-lg bg-[#818cf8]/08 border border-[#818cf8]/15 flex items-center justify-center shrink-0">
+                    <row.icon className="w-4 h-4 text-[#818cf8]" />
                   </div>
                   <div className="flex-1">
-                    <p className="font-mono text-[10px] text-[#a3a3a3] uppercase tracking-wider">{row.label}</p>
-                    <p className="font-mono text-sm text-[#fafafa]">{row.value}</p>
+                    <p className="font-mono text-[10px] text-[#7a8499] uppercase tracking-wider">{row.label}</p>
+                    <p className="font-mono text-sm text-[#e8eaf0]">{row.value}</p>
                   </div>
                   <CheckCircle2 className="w-4 h-4 text-green-400 shrink-0" />
                 </div>
@@ -97,34 +97,34 @@ export default function SecurityPage() {
           {/* Change password — only for email/password users */}
           {isEmailProvider ? (
             <motion.div variants={fadeUp} custom={0.2} className="vg-card rounded-xl p-6">
-              <h2 className="font-display text-sm font-bold text-[#fafafa] mb-4">Change Password</h2>
+              <h2 className="font-display text-sm font-bold text-[#e8eaf0] mb-4">Change Password</h2>
               <form onSubmit={handleChangePassword} className="space-y-4">
                 {/* Current */}
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#a3a3a3]" />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#3d4a63]" />
                   <input type={showCurrent ? "text" : "password"} placeholder="Current password" value={currentPass}
                     onChange={(e) => { setCurrentPass(e.target.value); setError(""); setSuccess(""); }} required
-                    className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-[#bcb8b1]/50 rounded-lg pl-10 pr-10 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono" />
-                  <button type="button" onClick={() => setShowCurrent(p => !p)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#a3a3a3] hover:text-[#fafafa]">
+                    className="w-full bg-[#0b0d14] border border-[#232a3d] focus:border-[#818cf8]/60 rounded-lg pl-10 pr-10 py-3 text-sm text-[#e8eaf0] placeholder-[#3d4a63] outline-none transition-colors font-mono" />
+                  <button type="button" onClick={() => setShowCurrent(p => !p)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#3d4a63] hover:text-[#e8eaf0]">
                     {showCurrent ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
                 {/* New */}
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#a3a3a3]" />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#3d4a63]" />
                   <input type={showNew ? "text" : "password"} placeholder="New password" value={newPass}
                     onChange={(e) => { setNewPass(e.target.value); setError(""); setSuccess(""); }} required
-                    className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-[#bcb8b1]/50 rounded-lg pl-10 pr-10 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono" />
-                  <button type="button" onClick={() => setShowNew(p => !p)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#a3a3a3] hover:text-[#fafafa]">
+                    className="w-full bg-[#0b0d14] border border-[#232a3d] focus:border-[#818cf8]/60 rounded-lg pl-10 pr-10 py-3 text-sm text-[#e8eaf0] placeholder-[#3d4a63] outline-none transition-colors font-mono" />
+                  <button type="button" onClick={() => setShowNew(p => !p)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#3d4a63] hover:text-[#e8eaf0]">
                     {showNew ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
                 {/* Confirm */}
                 <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#a3a3a3]" />
+                  <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#3d4a63]" />
                   <input type="password" placeholder="Confirm new password" value={confirmPass}
                     onChange={(e) => { setConfirmPass(e.target.value); setError(""); setSuccess(""); }} required
-                    className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-[#bcb8b1]/50 rounded-lg pl-10 pr-4 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono" />
+                    className="w-full bg-[#0b0d14] border border-[#232a3d] focus:border-[#818cf8]/60 rounded-lg pl-10 pr-4 py-3 text-sm text-[#e8eaf0] placeholder-[#3d4a63] outline-none transition-colors font-mono" />
                 </div>
 
                 {success && <div className="flex items-center gap-2 text-green-400 text-xs font-mono"><CheckCircle2 className="w-3.5 h-3.5" />{success}</div>}
@@ -137,15 +137,15 @@ export default function SecurityPage() {
             </motion.div>
           ) : (
             <motion.div variants={fadeUp} custom={0.2} className="vg-card rounded-xl p-6">
-              <h2 className="font-display text-sm font-bold text-[#fafafa] mb-2">Password</h2>
-              <p className="text-[#a3a3a3] text-sm font-mono">Your account uses Google sign-in. Password management is handled by Google.</p>
+              <h2 className="font-display text-sm font-bold text-[#e8eaf0] mb-2">Password</h2>
+              <p className="text-[#7a8499] text-sm font-mono">Your account uses Google sign-in. Password management is handled by Google.</p>
             </motion.div>
           )}
 
           {/* Danger zone */}
           <motion.div variants={fadeUp} custom={0.3} className="rounded-xl border border-red-500/20 bg-red-500/5 p-6">
             <h2 className="font-display text-sm font-bold text-red-400 mb-1">Danger Zone</h2>
-            <p className="text-[#a3a3a3] text-xs font-mono mb-4">Sign out from all active sessions immediately.</p>
+            <p className="text-[#7a8499] text-xs font-mono mb-4">Sign out from all active sessions immediately.</p>
             <button onClick={handleSignOutAll} className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-red-500/30 bg-red-500/10 hover:bg-red-500/20 text-red-400 font-mono text-xs uppercase tracking-widest transition-all">
               <LogOut className="w-4 h-4" /> Sign Out All Sessions
             </button>

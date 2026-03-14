@@ -32,7 +32,7 @@ function Toggle({ checked, onChange }: { checked: boolean; onChange: (v: boolean
     <button
       type="button"
       onClick={() => onChange(!checked)}
-      className={`relative w-10 h-5 rounded-full transition-colors duration-200 ${checked ? "bg-blue-500" : "bg-[#1e1e1e]"}`}
+      className={`relative w-10 h-5 rounded-full transition-colors duration-200 ${checked ? "bg-[#818cf8]" : "bg-[#232a3d]"}`}
     >
       <span className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full bg-white transition-transform duration-200 ${checked ? "translate-x-5" : "translate-x-0"}`} />
     </button>
@@ -76,9 +76,9 @@ export default function PreferencesPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#030303] text-[#fafafa]">
-      <div className="border-b border-[#1e1e1e] px-6 py-4 flex items-center gap-4 bg-[rgba(14,14,14,0.8)] backdrop-blur-xl sticky top-0 z-40">
-        <button onClick={() => navigate("/dashboard")} className="flex items-center gap-2 text-[#a3a3a3] hover:text-[#fafafa] transition-colors font-mono text-xs">
+    <div className="min-h-screen bg-[#0f1117] text-[#e8eaf0]">
+      <div className="border-b border-[#232a3d] px-6 py-4 flex items-center gap-4 bg-[rgba(13,16,24,0.85)] backdrop-blur-xl sticky top-0 z-40">
+        <button onClick={() => navigate("/dashboard")} className="flex items-center gap-2 text-[#7a8499] hover:text-[#e8eaf0] transition-colors font-mono text-xs">
           <ArrowLeft className="w-4 h-4" /> Back to Dashboard
         </button>
       </div>
@@ -88,15 +88,15 @@ export default function PreferencesPage() {
 
           <motion.div variants={fadeUp} custom={0}>
             <p className="section-label mb-2">Account</p>
-            <h1 className="font-display text-2xl font-bold text-[#fafafa]">Preferences</h1>
-            <p className="text-[#a3a3a3] text-sm mt-1">Customize how VoiceGuard AI behaves for you.</p>
+            <h1 className="font-display text-2xl font-bold text-[#e8eaf0]">Preferences</h1>
+            <p className="text-[#7a8499] text-sm mt-1">Customize how VoiceGuard AI behaves for you.</p>
           </motion.div>
 
           {/* Analysis settings */}
           <motion.div variants={fadeUp} custom={0.1} className="vg-card rounded-xl p-6 mt-6 space-y-5">
             <div className="flex items-center gap-2 mb-1">
-              <Zap className="w-4 h-4 text-[#bcb8b1]" />
-              <h2 className="font-display text-sm font-bold text-[#fafafa]">Analysis</h2>
+              <Zap className="w-4 h-4 text-[#818cf8]" />
+              <h2 className="font-display text-sm font-bold text-[#e8eaf0]">Analysis</h2>
             </div>
 
             {[
@@ -104,10 +104,10 @@ export default function PreferencesPage() {
               { key: "showConfidence"as const, label: "Show confidence scores",     desc: "Display AI confidence % alongside detection results" },
               { key: "highRiskOnly"  as const, label: "Alert on high risk only",    desc: "Only notify when risk score exceeds the threshold below" },
             ].map((row) => (
-              <div key={row.key} className="flex items-center justify-between gap-4 py-3 border-b border-[#1e1e1e] last:border-0">
+              <div key={row.key} className="flex items-center justify-between gap-4 py-3 border-b border-[#232a3d] last:border-0">
                 <div>
-                  <p className="font-mono text-sm text-[#fafafa]">{row.label}</p>
-                  <p className="font-mono text-[10px] text-[#a3a3a3] mt-0.5">{row.desc}</p>
+                  <p className="font-mono text-sm text-[#e8eaf0]">{row.label}</p>
+                  <p className="font-mono text-[10px] text-[#7a8499] mt-0.5">{row.desc}</p>
                 </div>
                 <Toggle checked={prefs[row.key] as boolean} onChange={(v) => update(row.key, v)} />
               </div>
@@ -117,10 +117,10 @@ export default function PreferencesPage() {
             <div className="pt-1">
               <div className="flex items-center justify-between mb-2">
                 <div>
-                  <p className="font-mono text-sm text-[#fafafa]">Risk Alert Threshold</p>
-                  <p className="font-mono text-[10px] text-[#a3a3a3]">Alert when risk score exceeds this value</p>
+                  <p className="font-mono text-sm text-[#e8eaf0]">Risk Alert Threshold</p>
+                  <p className="font-mono text-[10px] text-[#7a8499]">Alert when risk score exceeds this value</p>
                 </div>
-                <span className="font-mono text-sm font-bold text-[#bcb8b1]">{prefs.analysisThreshold}%</span>
+                <span className="font-mono text-sm font-bold text-[#818cf8]">{prefs.analysisThreshold}%</span>
               </div>
               <input
                 type="range" min={10} max={95} step={5}
@@ -128,7 +128,7 @@ export default function PreferencesPage() {
                 onChange={(e) => update("analysisThreshold", Number(e.target.value))}
                 className="w-full accent-[#bcb8b1] cursor-pointer"
               />
-              <div className="flex justify-between font-mono text-[9px] text-[#a3a3a3] mt-1">
+              <div className="flex justify-between font-mono text-[9px] text-[#7a8499] mt-1">
                 <span>10% (Sensitive)</span><span>95% (Strict)</span>
               </div>
             </div>
@@ -137,16 +137,16 @@ export default function PreferencesPage() {
           {/* Notifications */}
           <motion.div variants={fadeUp} custom={0.2} className="vg-card rounded-xl p-6 space-y-5">
             <div className="flex items-center gap-2 mb-1">
-              <Bell className="w-4 h-4 text-[#bcb8b1]" />
-              <h2 className="font-display text-sm font-bold text-[#fafafa]">Notifications</h2>
+              <Bell className="w-4 h-4 text-[#818cf8]" />
+              <h2 className="font-display text-sm font-bold text-[#e8eaf0]">Notifications</h2>
             </div>
             {[
               { key: "soundAlerts" as const, label: "Sound alerts", desc: "Play a sound when a deepfake is detected" },
             ].map((row) => (
               <div key={row.key} className="flex items-center justify-between gap-4">
                 <div>
-                  <p className="font-mono text-sm text-[#fafafa]">{row.label}</p>
-                  <p className="font-mono text-[10px] text-[#a3a3a3] mt-0.5">{row.desc}</p>
+                  <p className="font-mono text-sm text-[#e8eaf0]">{row.label}</p>
+                  <p className="font-mono text-[10px] text-[#7a8499] mt-0.5">{row.desc}</p>
                 </div>
                 <Toggle checked={prefs[row.key] as boolean} onChange={(v) => update(row.key, v)} />
               </div>
@@ -156,16 +156,16 @@ export default function PreferencesPage() {
           {/* Display */}
           <motion.div variants={fadeUp} custom={0.3} className="vg-card rounded-xl p-6 space-y-5">
             <div className="flex items-center gap-2 mb-1">
-              <Monitor className="w-4 h-4 text-[#bcb8b1]" />
-              <h2 className="font-display text-sm font-bold text-[#fafafa]">Display</h2>
+              <Monitor className="w-4 h-4 text-[#818cf8]" />
+              <h2 className="font-display text-sm font-bold text-[#e8eaf0]">Display</h2>
             </div>
             {[
               { key: "compactView" as const, label: "Compact view", desc: "Reduce spacing in dashboard cards and lists" },
             ].map((row) => (
-              <div key={row.key} className="flex items-center justify-between gap-4 pb-4 border-b border-[#1e1e1e]">
+              <div key={row.key} className="flex items-center justify-between gap-4 pb-4 border-b border-[#232a3d]">
                 <div>
-                  <p className="font-mono text-sm text-[#fafafa]">{row.label}</p>
-                  <p className="font-mono text-[10px] text-[#a3a3a3] mt-0.5">{row.desc}</p>
+                  <p className="font-mono text-sm text-[#e8eaf0]">{row.label}</p>
+                  <p className="font-mono text-[10px] text-[#7a8499] mt-0.5">{row.desc}</p>
                 </div>
                 <Toggle checked={prefs[row.key] as boolean} onChange={(v) => update(row.key, v)} />
               </div>
@@ -173,8 +173,8 @@ export default function PreferencesPage() {
 
             {/* Default tab */}
             <div>
-              <p className="font-mono text-sm text-[#fafafa] mb-1">Default Dashboard Tab</p>
-              <p className="font-mono text-[10px] text-[#a3a3a3] mb-3">Which tab opens when you land on the dashboard</p>
+              <p className="font-mono text-sm text-[#e8eaf0] mb-1">Default Dashboard Tab</p>
+              <p className="font-mono text-[10px] text-[#7a8499] mb-3">Which tab opens when you land on the dashboard</p>
               <div className="grid grid-cols-2 gap-2">
                 {tabs.map((t) => (
                   <button
@@ -182,8 +182,8 @@ export default function PreferencesPage() {
                     onClick={() => update("defaultTab", t.value)}
                     className={`px-3 py-2 rounded-lg border font-mono text-xs text-left transition-all ${
                       prefs.defaultTab === t.value
-                        ? "border-[#bcb8b1]/50 bg-[#bcb8b1]/08 text-[#bcb8b1]"
-                        : "border-[#1e1e1e] bg-white/5 text-[#a3a3a3] hover:border-[#bcb8b1]/20 hover:text-[#fafafa]"
+                        ? "border-[#818cf8]/50 bg-[#818cf8]/08 text-[#818cf8]"
+                        : "border-[#232a3d] bg-white/5 text-[#7a8499] hover:border-[#818cf8]/20 hover:text-[#e8eaf0]"
                     }`}
                   >
                     {t.label}

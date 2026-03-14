@@ -21,21 +21,13 @@ function Grain() {
   );
 }
 
-function SocialButton({
-  onClick,
-  disabled,
-  children,
-}: {
-  onClick: () => void;
-  disabled: boolean;
-  children: React.ReactNode;
-}) {
+function SocialButton({ onClick, disabled, children }: { onClick: () => void; disabled: boolean; children: React.ReactNode }) {
   return (
     <button
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className="flex items-center justify-center gap-3 w-full py-3 px-4 rounded-lg border border-[#1e1e1e] bg-white/5 hover:bg-white/10 hover:border-[#bcb8b1]/40 text-[#fafafa] font-mono text-xs uppercase tracking-widest transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+      className="flex items-center justify-center gap-3 w-full py-3 px-4 rounded-lg border border-[#232a3d] bg-white/5 hover:bg-white/8 hover:border-[#818cf8]/40 text-[#e8eaf0] font-mono text-xs uppercase tracking-widest transition-all disabled:opacity-50 disabled:cursor-not-allowed"
     >
       {children}
     </button>
@@ -44,18 +36,18 @@ function SocialButton({
 
 const passwordRules = [
   { label: "At least 8 characters", test: (p: string) => p.length >= 8 },
-  { label: "One uppercase letter", test: (p: string) => /[A-Z]/.test(p) },
-  { label: "One number", test: (p: string) => /\d/.test(p) },
+  { label: "One uppercase letter",  test: (p: string) => /[A-Z]/.test(p) },
+  { label: "One number",            test: (p: string) => /\d/.test(p) },
 ];
 
 export default function CreateAccount() {
   const navigate = useNavigate();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [name, setName]         = useState("");
+  const [email, setEmail]       = useState("");
   const [password, setPassword] = useState("");
   const [showPass, setShowPass] = useState(false);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [error, setError]       = useState("");
+  const [loading, setLoading]   = useState(false);
 
   const clearError = () => setError("");
 
@@ -112,14 +104,13 @@ export default function CreateAccount() {
     }
   };
 
-  return (
-    <div className="min-h-screen bg-[#030303] text-[#fafafa] flex items-center justify-center px-4 cyber-grid relative overflow-hidden">
-      <Grain />
+  const inputCls = "w-full bg-[#0b0d14] border border-[#232a3d] focus:border-[#818cf8]/60 rounded-lg pl-10 pr-4 py-3 text-sm text-[#e8eaf0] placeholder-[#3d4a63] outline-none transition-colors font-mono";
+  const inputIconCls = "absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#3d4a63]";
 
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(59,130,246,0.07) 0%, transparent 70%)" }}
-      />
+  return (
+    <div className="min-h-screen bg-[#0f1117] text-[#e8eaf0] flex items-center justify-center px-4 cyber-grid relative overflow-hidden">
+      <Grain />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(ellipse 50% 50% at 50% 50%, rgba(99,102,241,0.09) 0%, transparent 70%)" }} />
 
       <motion.div
         className="relative z-10 w-full max-w-md py-10"
@@ -130,8 +121,8 @@ export default function CreateAccount() {
         {/* Logo */}
         <motion.div variants={fadeUp} custom={0} className="flex items-center justify-center gap-2 mb-8">
           <Link to="/" className="flex items-center gap-2 group">
-            <Radio className="w-5 h-5 text-[#bcb8b1] group-hover:text-[#ccc9c3] transition-colors" />
-            <span className="font-display text-sm font-bold tracking-wider text-[#fafafa]">VoiceGuard AI</span>
+            <Radio className="w-5 h-5 text-[#818cf8] group-hover:text-[#a5b4fc] transition-colors" />
+            <span className="font-display text-sm font-bold tracking-wider text-[#e8eaf0]">VoiceGuard AI</span>
           </Link>
         </motion.div>
 
@@ -139,15 +130,12 @@ export default function CreateAccount() {
         <motion.div
           variants={fadeUp}
           custom={0.1}
-          className="rounded-2xl border border-[#1e1e1e] bg-[rgba(20,20,20,0.7)] backdrop-blur-xl p-8"
-          style={{ boxShadow: "0 0 40px rgba(59,130,246,0.06)" }}
+          className="rounded-2xl border border-[#232a3d] bg-[rgba(19,23,32,0.85)] backdrop-blur-xl p-8"
+          style={{ boxShadow: "0 0 40px rgba(129,140,248,0.08)" }}
         >
-          <h1 className="font-display text-2xl font-bold text-[#fafafa] mb-1">Create account</h1>
-          <p className="text-[#a3a3a3] text-sm mb-6">
-            Start detecting deepfake voices for free.
-          </p>
+          <h1 className="font-display text-2xl font-bold text-[#e8eaf0] mb-1">Create account</h1>
+          <p className="text-[#7a8499] text-sm mb-6">Start detecting deepfake voices for free.</p>
 
-          {/* Social buttons */}
           <div className="mb-6">
             <SocialButton onClick={() => handleSocial("google")} disabled={loading}>
               <svg className="w-4 h-4" viewBox="0 0 24 24">
@@ -161,74 +149,45 @@ export default function CreateAccount() {
           </div>
 
           <div className="flex items-center gap-3 mb-6">
-            <div className="flex-1 h-px bg-[#1e1e1e]" />
-            <span className="font-mono text-xs text-[#a3a3a3] uppercase tracking-widest">or</span>
-            <div className="flex-1 h-px bg-[#1e1e1e]" />
+            <div className="flex-1 h-px bg-[#232a3d]" />
+            <span className="font-mono text-xs text-[#3d4a63] uppercase tracking-widest">or</span>
+            <div className="flex-1 h-px bg-[#232a3d]" />
           </div>
 
-          {/* Registration form */}
           <form onSubmit={handleRegister} className="space-y-4">
-            {/* Name */}
             <div className="relative">
-              <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#a3a3a3]" />
-              <input
-                type="text"
-                placeholder="Full name"
-                value={name}
-                onChange={(e) => { setName(e.target.value); clearError(); }}
-                required
-                className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-[#bcb8b1]/50 rounded-lg pl-10 pr-4 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono"
-              />
+              <User className={inputIconCls} />
+              <input type="text" placeholder="Full name" value={name} onChange={(e) => { setName(e.target.value); clearError(); }} required className={inputCls} />
             </div>
 
-            {/* Email */}
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#a3a3a3]" />
-              <input
-                type="email"
-                placeholder="Email address"
-                value={email}
-                onChange={(e) => { setEmail(e.target.value); clearError(); }}
-                required
-                className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-[#bcb8b1]/50 rounded-lg pl-10 pr-4 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono"
-              />
+              <Mail className={inputIconCls} />
+              <input type="email" placeholder="Email address" value={email} onChange={(e) => { setEmail(e.target.value); clearError(); }} required className={inputCls} />
             </div>
 
-            {/* Password */}
             <div className="relative">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#a3a3a3]" />
+              <Lock className={inputIconCls} />
               <input
                 type={showPass ? "text" : "password"}
                 placeholder="Password"
                 value={password}
                 onChange={(e) => { setPassword(e.target.value); clearError(); }}
                 required
-                className="w-full bg-[#0a0a0a] border border-[#1e1e1e] focus:border-[#bcb8b1]/50 rounded-lg pl-10 pr-10 py-3 text-sm text-[#fafafa] placeholder-[#a3a3a3] outline-none transition-colors font-mono"
+                className="w-full bg-[#0b0d14] border border-[#232a3d] focus:border-[#818cf8]/60 rounded-lg pl-10 pr-10 py-3 text-sm text-[#e8eaf0] placeholder-[#3d4a63] outline-none transition-colors font-mono"
               />
-              <button
-                type="button"
-                onClick={() => setShowPass((p) => !p)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#a3a3a3] hover:text-[#fafafa] transition-colors"
-              >
+              <button type="button" onClick={() => setShowPass((p) => !p)} className="absolute right-3 top-1/2 -translate-y-1/2 text-[#3d4a63] hover:text-[#e8eaf0] transition-colors">
                 {showPass ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
 
-            {/* Password strength */}
             {password.length > 0 && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                className="space-y-1.5 px-1"
-              >
+              <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} className="space-y-1.5 px-1">
                 {passwordRules.map((rule) => {
                   const ok = rule.test(password);
                   return (
                     <div key={rule.label} className="flex items-center gap-2">
-                      <CheckCircle2 className={`w-3 h-3 transition-colors ${ok ? "text-[#bcb8b1]" : "text-[#a3a3a3]"}`} />
-                      <span className={`font-mono text-xs transition-colors ${ok ? "text-[#bcb8b1]" : "text-[#a3a3a3]"}`}>
-                        {rule.label}
-                      </span>
+                      <CheckCircle2 className={`w-3 h-3 transition-colors ${ok ? "text-[#818cf8]" : "text-[#3d4a63]"}`} />
+                      <span className={`font-mono text-xs transition-colors ${ok ? "text-[#a5b4fc]" : "text-[#3d4a63]"}`}>{rule.label}</span>
                     </div>
                   );
                 })}
@@ -237,30 +196,22 @@ export default function CreateAccount() {
 
             {error && (
               <div className="flex items-center gap-2 text-red-400 text-xs font-mono bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">
-                <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-                {error}
+                <AlertCircle className="w-3.5 h-3.5 shrink-0" />{error}
               </div>
             )}
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="btn-primary w-full flex items-center justify-center gap-2"
-            >
-              {loading && <Loader2 className="w-4 h-4 animate-spin" />}
-              Create Free Account
+            <button type="submit" disabled={loading} className="btn-primary w-full flex items-center justify-center gap-2">
+              {loading && <Loader2 className="w-4 h-4 animate-spin" />}Create Free Account
             </button>
           </form>
 
-          <p className="text-center text-xs text-[#a3a3a3] font-mono mt-6">
+          <p className="text-center text-xs text-[#7a8499] font-mono mt-6">
             Already have an account?{" "}
-            <Link to="/sign-in" className="text-[#bcb8b1] hover:text-[#ccc9c3] transition-colors">
-              Sign in →
-            </Link>
+            <Link to="/sign-in" className="text-[#818cf8] hover:text-[#a5b4fc] transition-colors">Sign in →</Link>
           </p>
         </motion.div>
 
-        <motion.p variants={fadeUp} custom={0.3} className="text-center text-xs text-[#a3a3a3] font-mono mt-6">
+        <motion.p variants={fadeUp} custom={0.3} className="text-center text-xs text-[#7a8499] font-mono mt-6">
           All audio processed locally — zero data exposure
         </motion.p>
       </motion.div>
