@@ -68,7 +68,7 @@ export default function CreateAccount() {
       "auth/operation-not-allowed": "This sign-in method is not enabled in Firebase Console.",
       "auth/internal-error": "Firebase internal error. Check your project configuration.",
     };
-    return map[code] ?? `Error: ${code || err?.message || "Something went wrong. Please try again."}`;
+    return map[code] ?? (code ? `Error: ${safeCode}` : "Something went wrong. Please try again.");
   };
 
   const passwordValid = passwordRules.every((r) => r.test(password));
