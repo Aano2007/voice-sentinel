@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, useCallback, type ReactNode } from "react";
-import { onAuthChange, auth, type User } from "@/lib/firebase";
+import { onAuthChange, auth, firebaseReady, type User } from "@/lib/firebase";
 
 interface AuthContextValue {
   user: User | null;
@@ -14,6 +14,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!firebaseReady) {
+      setLoading(false);
+      return;
+    }
     const unsub = onAuthChange((u) => {
       setUser(u);
       setLoading(false);

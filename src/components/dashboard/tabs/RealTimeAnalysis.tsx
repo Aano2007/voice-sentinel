@@ -101,12 +101,13 @@ function MetricCard({ label, value, icon: Icon, spark }: {
   );
 }
 
+const DEFAULT_METRICS = { decibels: 0, rms: 0, dominantFrequency: 0, zeroCrossingRate: 0, riskLevel: 0 };
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 export function RealTimeAnalysis() {
   const [isMonitoring, setIsMonitoring] = useState(false);
-  const [metrics, setMetrics] = useState({
-    decibels: 0, rms: 0, dominantFrequency: 0, zeroCrossingRate: 0, riskLevel: 0,
-  });
+  const [hasStopped, setHasStopped] = useState(false);
+  const [metrics, setMetrics] = useState(DEFAULT_METRICS);
   const [waveform,  setWaveform]  = useState<number[]>(Array(80).fill(0));
   const [spectrum,  setSpectrum]  = useState<number[]>(Array(40).fill(0));
   const [modelMs,   setModelMs]   = useState(0);
@@ -197,9 +198,21 @@ export function RealTimeAnalysis() {
     if (audioCtxRef.current)  audioCtxRef.current.close();
     streamRef.current?.getTracks().forEach(t => t.stop());
     setIsMonitoring(false);
-    setMetrics({ decibels: 0, rms: 0, dominantFrequency: 0, zeroCrossingRate: 0, riskLevel: 0 });
+    setHasStopped(true);
+    // intentionally NOT resetting data — freeze last captured frame
+  }, []);
+
+  const restoreDefaults = useCallback(() => {
+    setHasStopped(false);
+    setMetrics(DEFAULT_METRICS);
     setWaveform(Array(80).fill(0));
     setSpectrum(Array(40).fill(0));
+    setModelMs(0);
+    setConfidence(97);
+    setDbSpark(Array(20).fill(0));
+    setRmsSpark(Array(20).fill(0));
+    setFreqSpark(Array(20).fill(0));
+    setZcrSpark(Array(20).fill(0));
   }, []);
 
   useEffect(() => () => stopMonitoring(), [stopMonitoring]);
@@ -236,6 +249,20 @@ export function RealTimeAnalysis() {
                 />
                 LIVE AUDIO MONITORING ACTIVE
               </motion.div>
+            )}
+          </AnimatePresence>
+
+          <AnimatePresence>
+            {hasStopped && !isMonitoring && (
+              <motion.button
+                initial={{ opacity: 0, x: 8 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 8 }}
+                whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+                onClick={restoreDefaults}
+                className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-mono uppercase tracking-widest transition-all"
+                style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.4)" }}
+              >
+                Restore to Default
+              </motion.button>
             )}
           </AnimatePresence>
 

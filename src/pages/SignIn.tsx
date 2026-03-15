@@ -60,6 +60,7 @@ export default function SignIn() {
       "auth/invalid-credential": "Invalid email or password.",
       "auth/popup-closed-by-user": "Sign-in popup was closed.",
       "auth/account-exists-with-different-credential": "An account already exists with a different sign-in method.",
+      "auth/not-configured": "Firebase is not configured. Add your real credentials to the .env file to enable sign-in.",
       "auth/configuration-not-found": "Firebase is not configured. Add your credentials to the .env file.",
       "auth/api-key-not-valid.-please-pass-a-valid-api-key.": "Invalid Firebase API key. Check your .env file.",
       "auth/invalid-api-key": "Invalid Firebase API key. Check your .env file.",

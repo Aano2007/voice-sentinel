@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import {
-  Radio, Wifi, LogOut, User, Shield,
-  BarChart3, Settings, ChevronDown, Camera, Loader2,
+  Radio, LogOut, User, Shield,
+  BarChart3, Settings, ChevronDown, Camera, Loader2, Clock,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -90,14 +90,18 @@ export function Navbar() {
 
       {/* Right side */}
       <div className="flex items-center gap-4">
-        <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20">
-          <motion.div className="w-2 h-2 rounded-full bg-primary" animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 2, repeat: Infinity }} />
-          <span className="text-xs font-mono text-primary">SYSTEM ACTIVE</span>
+        <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full"
+          style={{ background: "rgba(34,197,94,0.08)", border: "1px solid rgba(34,197,94,0.2)" }}>
+          <motion.div className="w-2 h-2 rounded-full bg-green-400" animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 2, repeat: Infinity }} />
+          <span className="text-xs font-mono text-green-400">System Active</span>
         </div>
 
-        <div className="hidden sm:flex items-center gap-1.5 text-muted-foreground">
-          <Wifi className="w-4 h-4" />
-          <span className="text-xs font-mono">CONNECTED</span>
+        <div className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-full"
+          style={{ background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.07)" }}>
+          <Clock className="w-3.5 h-3.5" style={{ color: "rgba(255,255,255,0.25)" }} />
+          <span className="text-xs font-mono" style={{ color: "rgba(255,255,255,0.35)" }}>
+            Last scan: {new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+          </span>
         </div>
 
         {/* User dropdown trigger */}

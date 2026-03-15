@@ -36,7 +36,9 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
-const app = initializeApp(firebaseConfig);
+export const firebaseReady = !!firebaseConfig.apiKey && firebaseConfig.apiKey !== "placeholder";
+
+const app = firebaseReady ? initializeApp(firebaseConfig) : initializeApp({ apiKey: "demo", authDomain: "demo", projectId: "demo" }, "demo");
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
@@ -67,6 +69,8 @@ async function saveUserToFirestore(user: User, extra?: { displayName?: string })
   );
 }
 
+const notConfigured = () => { throw Object.assign(new Error("Firebase not configured"), { code: "auth/not-configured" }); };
+
 // ─── Auth helpers ─────────────────────────────────────────────────────────────
 
 export const registerWithEmail = async (
@@ -74,6 +78,7 @@ export const registerWithEmail = async (
   password: string,
   displayName: string
 ) => {
+  if (!firebaseReady) notConfigured();
   const credential = await createUserWithEmailAndPassword(auth, email, password);
   await updateProfile(credential.user, { displayName });
   await saveUserToFirestore(credential.user, { displayName });
@@ -81,25 +86,30 @@ export const registerWithEmail = async (
 };
 
 export const signInWithEmail = async (email: string, password: string) => {
+  if (!firebaseReady) notConfigured();
   const credential = await signInWithEmailAndPassword(auth, email, password);
   await saveUserToFirestore(credential.user);
   return credential.user;
 };
 
 export const signInWithGoogle = async () => {
+  if (!firebaseReady) notConfigured();
   const credential = await signInWithPopup(auth, googleProvider);
   await saveUserToFirestore(credential.user);
   return credential.user;
 };
 
 export const signInWithGithub = async () => {
+  if (!firebaseReady) notConfigured();
   const credential = await signInWithPopup(auth, githubProvider);
   await saveUserToFirestore(credential.user);
   return credential.user;
 };
 
-export const resetPassword = (email: string) =>
-  sendPasswordResetEmail(auth, email);
+export const resetPassword = (email: string) => {
+  if (!firebaseReady) notConfigured();
+  return sendPasswordResetEmail(auth, email);
+};
 
 export const logout = () => signOut(auth);
 

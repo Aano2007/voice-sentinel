@@ -74,7 +74,10 @@ export function FileAnalysis() {
   const [waveform, setWaveform] = useState<number[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
   const [playHead, setPlayHead] = useState(0);
+  const [audioDuration, setAudioDuration] = useState(0);
   const playRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioUrlRef = useRef<string | null>(null);
 
   const validate = (f: File) => {
     if (!f.name.match(/\.(wav|mp3|ogg|m4a)$/i)) { alert("Unsupported format."); return false; }
@@ -83,6 +86,14 @@ export function FileAnalysis() {
   };
 
   const runAnalysis = async (f: File) => {
+    // create object URL for real audio playback
+    if (audioUrlRef.current) URL.revokeObjectURL(audioUrlRef.current);
+    const url = URL.createObjectURL(f);
+    audioUrlRef.current = url;
+    if (audioRef.current) {
+      audioRef.current.src = url;
+      audioRef.current.load();
+    }
     setIsAnalyzing(true); setResult(null); setProgress(0); setPlayHead(0);
     const steps = [15, 35, 55, 72, 88, 100];
     for (const s of steps) {
@@ -113,16 +124,24 @@ export function FileAnalysis() {
   }, []);
 
   const togglePlay = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
     if (isPlaying) {
-      clearInterval(playRef.current!); setIsPlaying(false);
+      audio.pause();
+      setIsPlaying(false);
     } else {
+      audio.play();
       setIsPlaying(true);
-      playRef.current = setInterval(() => {
-        setPlayHead(p => { if (p >= 100) { clearInterval(playRef.current!); setIsPlaying(false); return 0; } return p + 0.5; });
-      }, 50);
     }
   };
-  const stopPlay = () => { clearInterval(playRef.current!); setIsPlaying(false); setPlayHead(0); };
+  const stopPlay = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.pause();
+    audio.currentTime = 0;
+    setIsPlaying(false);
+    setPlayHead(0);
+  };
 
   const isDeepfake = result?.label === "Deepfake Detected";
   const isReal = result?.label === "Real Voice";
@@ -231,6 +250,20 @@ export function FileAnalysis() {
         )}
       </AnimatePresence>
 
+      {/* Hidden audio element — always mounted so ref is valid when file is picked */}
+      <audio
+        ref={audioRef}
+        onTimeUpdate={() => {
+          const audio = audioRef.current;
+          if (audio && audio.duration)
+            setPlayHead((audio.currentTime / audio.duration) * 100);
+        }}
+        onLoadedMetadata={() => {
+          if (audioRef.current) setAudioDuration(audioRef.current.duration);
+        }}
+        onEnded={() => { setIsPlaying(false); setPlayHead(0); }}
+      />
+
       {/* Results */}
       <AnimatePresence>
         {result && uploadedFile && !isAnalyzing && (
@@ -279,7 +312,8 @@ export function FileAnalysis() {
                   style={{ left: `${playHead}%` }} />
               </div>
               <div className="flex justify-between text-[10px] font-mono text-muted-foreground mt-1.5">
-                <span>0:00</span><span>0:30</span>
+                <span>0:00</span>
+                <span>{audioDuration ? `${Math.floor(audioDuration / 60)}:${String(Math.floor(audioDuration % 60)).padStart(2, "0")}` : "0:00"}</span>
               </div>
             </div>
 
