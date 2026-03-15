@@ -245,7 +245,7 @@ export function VoiceCompare() {
       </div>
 
       {/* ── Two-column layout ── */}
-      <div className="flex-1 grid grid-cols-[380px_1fr] gap-5 min-h-0">
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-5 min-h-0">
 
         {/* ── LEFT COLUMN: controls ── */}
         <div className="flex flex-col gap-4">

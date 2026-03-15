@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "@/components/dashboard/Navbar";
 import {
   Activity, FileAudio, BarChart3, Shield,
-  Users, Radar, PieChart, Clock,
+  Users, Radar, PieChart, Clock, Menu, X,
 } from "lucide-react";
 import { RealTimeAnalysis } from "@/components/dashboard/tabs/RealTimeAnalysis";
 import { FileAnalysis }     from "@/components/dashboard/tabs/FileAnalysis";
@@ -60,78 +60,127 @@ const TAB_LABELS: Record<TabType, string> = {
   statistics: "Statistics",
 };
 
+function SidebarContent({ activeTab, onSelect }: { activeTab: TabType; onSelect: (t: TabType) => void }) {
+  const lastScan = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  return (
+    <>
+      <div className="px-4 pt-5 pb-3">
+        <div className="flex items-center gap-2 px-3 py-2 rounded-lg" style={{ background: "rgba(34,197,94,0.07)", border: "1px solid rgba(34,197,94,0.18)" }}>
+          <motion.span className="w-2 h-2 rounded-full bg-green-400 shrink-0" animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 2, repeat: Infinity }} />
+          <span className="font-mono text-[11px] text-green-400 uppercase tracking-widest">System Active</span>
+        </div>
+        <div className="flex items-center gap-1.5 mt-2 px-1">
+          <Clock className="w-3 h-3 text-white/20" />
+          <span className="font-mono text-[10px] text-white/25">Last scan: {lastScan}</span>
+        </div>
+      </div>
+      <div className="px-3 pb-6 space-y-6 mt-1">
+        {NAV_GROUPS.map((group) => (
+          <div key={group.label}>
+            <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/20 px-3 mb-2">{group.label}</p>
+            <div className="space-y-0.5">
+              {group.items.map(({ id, label, icon: Icon }) => {
+                const active = activeTab === id;
+                return (
+                  <motion.button
+                    key={id}
+                    onClick={() => onSelect(id)}
+                    whileTap={{ scale: 0.98 }}
+                    className="relative w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-mono text-[13px] transition-all duration-150 text-left"
+                    style={active ? {
+                      background: "rgba(129,140,248,0.1)",
+                      color: "#a5b4fc",
+                      borderLeft: "2px solid #818cf8",
+                      boxShadow: "inset 0 0 20px rgba(129,140,248,0.05)",
+                    } : {
+                      color: "rgba(255,255,255,0.35)",
+                      borderLeft: "2px solid transparent",
+                    }}
+                    onMouseEnter={e => { if (!active) (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.7)"; }}
+                    onMouseLeave={e => { if (!active) (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.35)"; }}
+                  >
+                    <Icon className="w-4 h-4 shrink-0" />
+                    <span className="truncate">{label}</span>
+                  </motion.button>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<TabType>("realtime");
-  const lastScan = new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const handleSelect = (t: TabType) => { setActiveTab(t); setDrawerOpen(false); };
 
   return (
     <div className="min-h-screen bg-background" style={{ background: "#0b0d14" }}>
       <Navbar />
 
+      {/* ── Mobile drawer overlay ── */}
+      <AnimatePresence>
+        {drawerOpen && (
+          <motion.div
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 z-40 bg-black/60 lg:hidden"
+            onClick={() => setDrawerOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* ── Mobile drawer ── */}
+      <AnimatePresence>
+        {drawerOpen && (
+          <motion.aside
+            initial={{ x: -260 }} animate={{ x: 0 }} exit={{ x: -260 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+            className="fixed top-0 left-0 z-50 w-64 h-full flex flex-col overflow-y-auto lg:hidden"
+            style={{ background: "rgba(13,16,24,0.99)", borderRight: "1px solid rgba(255,255,255,0.06)" }}
+          >
+            <div className="flex items-center justify-between px-4 pt-4 pb-2">
+              <span className="font-mono text-xs text-white/30 uppercase tracking-widest">Navigation</span>
+              <button onClick={() => setDrawerOpen(false)} className="p-1 rounded-lg hover:bg-white/5">
+                <X className="w-4 h-4 text-white/40" />
+              </button>
+            </div>
+            <SidebarContent activeTab={activeTab} onSelect={handleSelect} />
+          </motion.aside>
+        )}
+      </AnimatePresence>
+
       <div className="flex">
-        {/* ── Sidebar ── */}
+        {/* ── Desktop Sidebar ── */}
         <motion.aside
           initial={{ x: -80, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.35, ease: "easeOut" }}
-          className="w-60 shrink-0 sticky top-[57px] h-[calc(100vh-57px)] flex flex-col overflow-y-auto"
+          className="hidden lg:flex w-60 shrink-0 sticky top-[57px] h-[calc(100vh-57px)] flex-col overflow-y-auto"
           style={{ background: "rgba(13,16,24,0.95)", borderRight: "1px solid rgba(255,255,255,0.06)" }}
         >
-          {/* Status pill */}
-          <div className="px-4 pt-5 pb-3">
-            <div className="flex items-center gap-2 px-3 py-2 rounded-lg" style={{ background: "rgba(34,197,94,0.07)", border: "1px solid rgba(34,197,94,0.18)" }}>
-              <motion.span className="w-2 h-2 rounded-full bg-green-400 shrink-0" animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 2, repeat: Infinity }} />
-              <span className="font-mono text-[11px] text-green-400 uppercase tracking-widest">System Active</span>
-            </div>
-            <div className="flex items-center gap-1.5 mt-2 px-1">
-              <Clock className="w-3 h-3 text-white/20" />
-              <span className="font-mono text-[10px] text-white/25">Last scan: {lastScan}</span>
-            </div>
-          </div>
-
-          <div className="px-3 pb-6 space-y-6 mt-1">
-            {NAV_GROUPS.map((group) => (
-              <div key={group.label}>
-                <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/20 px-3 mb-2">{group.label}</p>
-                <div className="space-y-0.5">
-                  {group.items.map(({ id, label, icon: Icon }) => {
-                    const active = activeTab === id;
-                    return (
-                      <motion.button
-                        key={id}
-                        onClick={() => setActiveTab(id)}
-                        whileTap={{ scale: 0.98 }}
-                        className="relative w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-mono text-[13px] transition-all duration-150 text-left"
-                        style={active ? {
-                          background: "rgba(129,140,248,0.1)",
-                          color: "#a5b4fc",
-                          borderLeft: "2px solid #818cf8",
-                          boxShadow: "inset 0 0 20px rgba(129,140,248,0.05)",
-                        } : {
-                          color: "rgba(255,255,255,0.35)",
-                          borderLeft: "2px solid transparent",
-                        }}
-                        onMouseEnter={e => { if (!active) (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.7)"; }}
-                        onMouseLeave={e => { if (!active) (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.35)"; }}
-                      >
-                        <Icon className="w-4 h-4 shrink-0" />
-                        <span className="truncate">{label}</span>
-                      </motion.button>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
+          <SidebarContent activeTab={activeTab} onSelect={handleSelect} />
         </motion.aside>
 
         {/* ── Main Content ── */}
-        <div className="flex-1 min-w-0 p-7">
-          {/* Breadcrumb */}
-          <div className="flex items-center gap-2 mb-6">
-            <span className="font-mono text-[11px] text-white/20 uppercase tracking-widest">Dashboard</span>
-            <span className="text-white/15 text-xs">/</span>
-            <span className="font-mono text-[11px] text-[#818cf8] uppercase tracking-widest">{TAB_LABELS[activeTab]}</span>
+        <div className="flex-1 min-w-0 p-4 md:p-7">
+          {/* Breadcrumb + mobile menu button */}
+          <div className="flex items-center gap-3 mb-6">
+            <button
+              onClick={() => setDrawerOpen(true)}
+              className="lg:hidden p-2 rounded-xl hover:bg-white/5 transition-colors"
+              style={{ border: "1px solid rgba(255,255,255,0.08)" }}
+            >
+              <Menu className="w-4 h-4 text-white/40" />
+            </button>
+            <div className="flex items-center gap-2">
+              <span className="font-mono text-[11px] text-white/20 uppercase tracking-widest">Dashboard</span>
+              <span className="text-white/15 text-xs">/</span>
+              <span className="font-mono text-[11px] text-[#818cf8] uppercase tracking-widest">{TAB_LABELS[activeTab]}</span>
+            </div>
           </div>
 
           <AnimatePresence mode="wait">

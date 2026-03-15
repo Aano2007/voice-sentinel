@@ -83,8 +83,8 @@ export function Navbar() {
           <Radio className="w-8 h-8 text-primary" />
         </motion.div>
         <div>
-          <h1 className="text-lg font-bold font-mono tracking-tight text-foreground">Audio Deepfake Detector</h1>
-          <p className="text-[10px] text-muted-foreground font-mono uppercase tracking-widest">AI Voice Authentication System</p>
+          <h1 className="text-base md:text-lg font-bold font-mono tracking-tight text-foreground">Audio Deepfake Detector</h1>
+          <p className="hidden sm:block text-[10px] text-muted-foreground font-mono uppercase tracking-widest">AI Voice Authentication System</p>
         </div>
       </div>
 

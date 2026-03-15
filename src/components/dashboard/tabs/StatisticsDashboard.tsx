@@ -208,7 +208,7 @@ export function StatisticsDashboard() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
         <div>
           <h1 className="text-[28px] font-bold font-mono leading-tight" style={{ color: "#e8eaf0" }}>Statistics</h1>
           <p className="font-mono text-sm mt-1" style={{ color: "rgba(255,255,255,0.35)" }}>
@@ -216,7 +216,7 @@ export function StatisticsDashboard() {
           </p>
         </div>
         <button onClick={() => setStats(AudioDatabase.getStats())}
-          className="flex items-center gap-2 px-4 py-2 rounded-xl font-mono text-xs uppercase tracking-widest transition-all shrink-0"
+          className="flex items-center gap-2 px-4 py-2 rounded-xl font-mono text-xs uppercase tracking-widest transition-all shrink-0 self-start"
           style={{ background: CARD, border: `1px solid ${BORDER}`, color: "rgba(255,255,255,0.4)" }}
           onMouseEnter={e => (e.currentTarget.style.color = "#e8eaf0")}
           onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.4)")}>

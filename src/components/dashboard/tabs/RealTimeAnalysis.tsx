@@ -226,14 +226,14 @@ export function RealTimeAnalysis() {
   return (
     <div className="space-y-5">
 
-      {/* ── Header ── */}
-      <div className="flex items-center justify-between">
+      {/* ─── Header ─── */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold font-mono mb-0.5" style={{ color: A2 }}>Real-time Analysis</h1>
           <p className="text-xs font-mono text-white/35">Live microphone monitoring and deepfake detection</p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 flex-wrap">
           <AnimatePresence>
             {isMonitoring && (
               <motion.div
