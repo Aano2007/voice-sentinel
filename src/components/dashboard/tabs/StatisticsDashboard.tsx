@@ -105,7 +105,7 @@ function GaugeChart({ score }: { score: number }) {
   return (
     <div className="flex flex-col items-center gap-2">
       <div className="relative" style={{ width: 160, height: 130 }}>
-        <svg width={160} height={160} viewBox="0 0 160 160" style={{ position: "absolute", top: 0, left: 0 }}>
+        <svg width={160} height={160} viewBox="0 0 160 160" style={{ position: "absolute", top: -20, left: 0 }}>
           {/* Track */}
           <circle cx={cx} cy={cy} r={R} fill="none" stroke="rgba(255,255,255,0.06)"
             strokeWidth={12} strokeDasharray={`${arc} ${circ - arc}`}
