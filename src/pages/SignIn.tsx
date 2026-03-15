@@ -50,7 +50,8 @@ export default function SignIn() {
 
   const friendlyError = (err: any) => {
     const code: string = err?.code ?? "";
-    console.error("[Firebase Auth Error]", code, err?.message);
+    const safeCode = code.replace(/[\r\n]/g, "");
+    console.error("[Firebase Auth Error]", safeCode);
     const map: Record<string, string> = {
       "auth/user-not-found": "No account found with this email.",
       "auth/wrong-password": "Incorrect password. Try again.",

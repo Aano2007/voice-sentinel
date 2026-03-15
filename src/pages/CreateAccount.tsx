@@ -53,7 +53,8 @@ export default function CreateAccount() {
 
   const friendlyError = (err: any) => {
     const code: string = err?.code ?? "";
-    console.error("[Firebase Auth Error]", code, err?.message);
+    const safeCode = code.replace(/[\r\n]/g, "");
+    console.error("[Firebase Auth Error]", safeCode);
     const map: Record<string, string> = {
       "auth/email-already-in-use": "An account with this email already exists.",
       "auth/invalid-email": "Please enter a valid email address.",
