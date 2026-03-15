@@ -104,7 +104,7 @@ function GaugeChart({ score }: { score: number }) {
 
   return (
     <div className="flex flex-col items-center gap-2">
-      <div className="relative" style={{ width: 160, height: 120 }}>
+      <div className="relative" style={{ width: 160, height: 130 }}>
         <svg width={160} height={160} viewBox="0 0 160 160" style={{ position: "absolute", top: 0, left: 0 }}>
           {/* Track */}
           <circle cx={cx} cy={cy} r={R} fill="none" stroke="rgba(255,255,255,0.06)"
@@ -138,14 +138,14 @@ function GaugeChart({ score }: { score: number }) {
             animate={{ rotate: needleAngle }}
             transition={{ duration: 1.2, ease: "easeOut" }} />
           <circle cx={cx} cy={cy} r={4} fill="#e8eaf0" />
-        </svg>
-        {/* Score */}
-        <div className="absolute inset-0 flex flex-col items-center justify-end pb-2">
-          <motion.span className="font-mono text-3xl font-bold" style={{ color }}
-            initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}>
+          {/* Score inside SVG, above center */}
+          <motion.text x={cx} y={cy - 10} textAnchor="middle" fontSize="22" fontWeight="700"
+            fontFamily="monospace" fill={color}
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}>
             {clamp.toFixed(1)}
-          </motion.span>
-        </div>
+          </motion.text>
+        </svg>
       </div>
       <span className="font-mono text-[12px] font-semibold uppercase tracking-widest" style={{ color }}>{label}</span>
       <div className="flex items-center gap-4 mt-1">
