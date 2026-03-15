@@ -135,12 +135,7 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
             <div className="p-6 space-y-6">
               {/* Logo and title */}
               <div className="flex items-center gap-4 mb-6">
-                <motion.div
-                  animate={{ rotate: [0, 360] }}
-                  transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                >
-                  <Terminal className="w-12 h-12 text-primary" />
-                </motion.div>
+                <Terminal className="w-12 h-12 text-primary" />
                 <div>
                   <h2 className="text-2xl font-bold font-mono text-primary">
                     INITIALIZING SYSTEM
